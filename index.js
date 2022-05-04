@@ -1,7 +1,7 @@
-const config = require('../config.json')
+const config = require('./config.json')
 const {Client, Intents} = require( 'discord.js' );
 const client = new Client( {intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS]} );
-const command = require('../commandsBuilder')
+const command = require('./commandsBuilder')
 const roleSelect = require('./role-select')
 
 client.on('ready', () => {
@@ -9,7 +9,6 @@ client.on('ready', () => {
     
     command(client, 'game', (message) =>  {
         //const getEmoji = client.emojis.cache.get("956540916846444544")
-        message.channel.send('<:apex:956540916846444544>')
         message.channel.send('Vibe')
     })
     roleSelect(client)

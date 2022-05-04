@@ -1,3 +1,4 @@
+const {MessageEmbed } = require('discord.js')
 const firstMessage = require('./first-message')
 
 module.exports = (client) => {
@@ -7,7 +8,10 @@ module.exports = (client) => {
 
     const emojis = {
         SeaOfThieves: 'Real Pirates',
-        apex: 'Apex',  
+        apex: 'Apex',
+        CSGO: 'CS:GO',
+        HYPERS: 'Newbie',
+
     }
     const reactions = []
 
@@ -19,7 +23,12 @@ module.exports = (client) => {
         const role = emojis[key]
         emojiText += fixedEmoji + ' = ' + role + '\n'
     }
-    firstMessage(client, channelId, emojiText, reactions)
+    let emojiEmbed = new MessageEmbed()
+    .setTitle("Ur Title")
+    .setDescription(emojiText)
+    .setColor('#11e8e4')
+
+    firstMessage(client, channelId, emojiEmbed, reactions)
     const handleReaction = (reaction, user, add) => {
         if (user.id === '970985691427254273') {
             return
