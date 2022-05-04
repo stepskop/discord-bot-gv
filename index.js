@@ -8,7 +8,6 @@ client.on('ready', () => {
     console.log('OK')
     
     command(client, 'game', (message) =>  {
-        //const getEmoji = client.emojis.cache.get("956540916846444544")
         message.channel.send('Vibe')
     })
     roleSelect(client)

@@ -7,10 +7,12 @@ module.exports = (client) => {
     const getEmoji = (emojiName) => client.emojis.cache.find((emoji) => emoji.name === emojiName)
 
     const emojis = {
-        SeaOfThieves: 'Real Pirates',
-        apex: 'Apex',
-        CSGO: 'CS:GO',
-        HYPERS: 'Newbie',
+        sot: 'Sea of Thieves',
+        apex: 'Apex Legends',
+        cod: 'Call of Duty',
+        csgo: 'CS:GO',
+        mc: 'Minecraft',
+        lol: 'League of Legends',
 
     }
     const reactions = []
