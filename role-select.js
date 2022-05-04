@@ -17,7 +17,7 @@ module.exports = (client) => {
     }
     const reactions = []
 
-    let emojiText = 'Add reactions\n\n'
+    let emojiText = 'React to get role\n\n'
     for (const key in emojis) {
         const emoji = getEmoji(key)
         reactions.push(emoji)
@@ -26,7 +26,7 @@ module.exports = (client) => {
         emojiText += fixedEmoji + ' = ' + role + '\n'
     }
     let emojiEmbed = new MessageEmbed()
-    .setTitle("Ur Title")
+    .setTitle("Games you play?")
     .setDescription(emojiText)
     .setColor('#11e8e4')
 
