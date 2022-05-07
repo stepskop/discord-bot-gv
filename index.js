@@ -6,6 +6,7 @@ const roleSelect = require('./src/role-select')
 
 client.on('ready', () => {
     console.log('OK')
+    client.user.setActivity("my real owner", { type: 'LISTENING'})
     
     command(client, 'game', 0, (message) =>  {
         message.channel.send('Vibe')
