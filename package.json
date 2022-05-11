@@ -9,6 +9,8 @@
   "author": "StepSkop",
   "license": "ISC",
   "dependencies": {
+    "@discordjs/rest": "^0.4.1",
+    "discord-api-types": "^0.32.1",
     "discord.js": "^13.6.0"
   }
 }
