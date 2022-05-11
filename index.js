@@ -19,7 +19,7 @@ client.on('ready', () => {
             //Testers: 973854832492412948
             if (user.roles.cache.has("973854832492412948") == true) {
                 console.log(user.user.username)
-                //user.send("V sobotu 14.5. (tento týden) je v Sea of Thieves komunitní den, pro nás znamená to jediné, Trojnásobnou Reputaci a Zlato. Chceme toho co nejvíce využít. Na sobotu tímto plánujeme Alianci.\nhttps://discord.com/events/712268262347374632/973494531230171156\nveškeré sdíleni (https://gamevibe.netlify.com/) mezi další známé piráty vítáno")
+                //user.send("V sobotu 14.5. (tento týden) je v Sea of Thieves komunitní den, pro nás znamená to jediné, Trojnásobnou Reputaci a Zlato. Chceme toho co nejvíce využít. Na sobotu tímto plánujeme Alianci.\nhttps://discord.com/events/712268262347374632/973494531230171156\nveškeré sdíleni (https://gamevibe.netlify.com/) mezi další známé piráty vítáno.\nO čase konání rozhodni v #alliance-chat")
             }
     })});
 
