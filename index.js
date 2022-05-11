@@ -5,6 +5,7 @@ const command = require('./src/commandsBuilder')
 const roleSelect = require('./src/role-select')
 
 client.on('ready', () => {
+    const guild = client.guilds.resolve("712268262347374632")
     console.log('OK')
     client.user.setActivity("my real owner", { type: 'LISTENING'})
     
@@ -12,10 +13,18 @@ client.on('ready', () => {
         message.channel.send('Vibe')
     })
     roleSelect(client)
+    guild.members.fetch( {force: true} ).then(user => {
+        user.forEach(user => {
+            //Pirati: 954478395536850954
+            //Testers: 973854832492412948
+            if (user.roles.cache.has("973854832492412948") == true) {
+                console.log(user.user.username)
+                //user.send("V sobotu 14.5. (tento týden) je v Sea of Thieves komunitní den, pro nás znamená to jediné, Trojnásobnou Reputaci a Zlato. Chceme toho co nejvíce využít. Na sobotu tímto plánujeme Alianci.\nhttps://discord.com/events/712268262347374632/973494531230171156\nveškeré sdíleni (https://gamevibe.netlify.com/) mezi další známé piráty vítáno")
+            }
+    })});
 
     command(client, 'roleall', 2, (message, args) => {
         if (message.author.id === "294676882081972226") {
-            const guild = client.guilds.resolve("712268262347374632")
             const role = guild.roles.cache.find((role) => role.id === args[1])
             if (args[0] === "add") {
                 guild.members.fetch( {force: true} ).then(user => {
