@@ -30,8 +30,6 @@ client.on('interactionCreate', async (interaction) => {
         if (interaction.member.id === '294676882081972226') {
             const roleArg = options.get('role')
             const messageArg = options.get('message')
-            console.log(roleArg.value)
-            console.log(messageArg.value)
 
             guild.members.fetch( {force: true} ).then(user => {
                 user.forEach(user => {
