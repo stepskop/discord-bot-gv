@@ -57,4 +57,48 @@ module.exports = (client) => {
             }
         ]
     })
+    commands.create({
+        name: 'play',
+        description: 'Plays a song',
+        options: [
+            {
+                name: 'search',
+                description: 'Use Name or URL',
+                type: 'STRING',
+                required: true,
+            }
+        ]
+    })
+    commands.create({
+        name: 'stop',
+        description: 'Stops a playing music'
+    })
+    commands.create({
+        name: 'skip',
+        description: 'Skips to another track in queue'
+    })
+    commands.create({
+        name: 'volume',
+        description: 'Alter the volume',
+        options: [
+            {
+                name: 'percent',
+                description: '10 = 10%',
+                type: 'NUMBER',
+                required: true,
+            }
+        ]
+    })
+    commands.create({
+        name: 'queue',
+        description: 'Shows a queue of tracks'
+    })
+    commands.create({
+        name: 'pause',
+        description: 'Pauses the track'
+    })
+    commands.create({
+        name: 'resume',
+        description: 'Resumes the track'
+    })
 }
