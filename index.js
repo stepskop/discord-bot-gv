@@ -39,6 +39,7 @@ client.on('interactionCreate', async (interaction) => {
     const voiceChannel = member.voice.channel;
     console.log("User is in "+ voiceChannel)
 
+<<<<<<< HEAD
     if (commandName === 'play' && !voiceChannel ||
      commandName === 'stop' && !voiceChannel|| 
      commandName === 'skip' && !voiceChannel|| 
@@ -50,6 +51,32 @@ client.on('interactionCreate', async (interaction) => {
         .setDescription("You must be in voice channel!")
         return interaction.reply({embeds: [embed]
         })
+=======
+    //Commands
+    if (commandName === 'sendms') {
+        if (interaction.member.id === '294676882081972226') {
+            const roleArg = options.get('role')
+            const messageArg = options.get('message')
+
+            guild.members.fetch( {force: true} ).then(user => {
+                user.forEach(user => {
+                    if (user.roles.cache.has(roleArg.value) == true) {
+                        console.log(user.user.username)
+                        user.send(messageArg.value)
+                    }
+                })
+            });
+
+            interaction.reply({
+                content:'AdminSucces',
+                ephemeral:true
+            })
+        } else {
+            interaction.reply({
+                content: "OK"
+            })
+        }
+>>>>>>> e2fddacae0c82b1b9932ea0eea3fb719505541d5
     }
     if (commandName === 'play' && guild.me.voice.channelId && voiceChannel.id !== guild.me.voice.channelId||
      commandName === 'stop' && guild.me.voice.channelId && voiceChannel.id !== guild.me.voice.channelId|| 
