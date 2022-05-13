@@ -1,5 +1,5 @@
 const config = require('./config.json')
-const {Client, Intents, MessageEmbed, CommandInteraction} = require( 'discord.js' );
+const {Client, Intents, MessageEmbed, CommandInteraction, ReactionUserManager} = require( 'discord.js' );
 const client = new Client( {intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_VOICE_STATES]} );
 const command = require('./src/commandsBuilder')
 const slashCommands = require('./src/slashCommandsBuilder')
@@ -28,6 +28,16 @@ client.distube = new DisTube(client, {
     youtubeDL: false,
     plugins: [new YtDlpPlugin(), new SpotifyPlugin()]
 })
+var replyString
+client.distube.on('playSong', (queue, song) => {
+    var reply = `Playing \`${song.name}\` - \`${song.formattedDuration}\`\nRequested by: ${song.user}`
+    replyString = reply.toString()
+    console.log(
+        replyString
+    )
+}
+    
+)
 
 
 client.on('interactionCreate', async (interaction) => {
@@ -140,10 +150,12 @@ client.on('interactionCreate', async (interaction) => {
                         return interaction.reply({content:"Unsupported"})
                     }
                     client.distube.play( voiceChannel, options.getString('search'), { textChannel: channel, member:member })
-                //console.log(options.get('search').value)
-                    return interaction.reply({content:"Playing Requested"})
+                    queue = await client.distube.getQueue(voiceChannel)
+                    
+                    return interaction.reply({content:"DONE"})
+                    
                 } catch (errorPlay) {
-                    return interaction.reply({content:"Unsupported"})
+                    return interaction.reply({content:"Unsupported" + errorPlay})
                 }
                 
 
@@ -203,7 +215,7 @@ client.on('interactionCreate', async (interaction) => {
 client.on('guildMemberAdd', guildMember => {
     console.log('User @' + guildMember.user.tag + ' has joined the server!');
 
-    const autoRoles = ["Newbie", "◾⁣          Games           ⁣◾"]
+    const autoRoles = ["Gamer", "◾⁣          Games           ⁣◾"]
     autoRoles.forEach(element => {
         const role = guildMember.guild.roles.cache.find((role) => role.name == element)
         guildMember.roles.add(role);
