@@ -1,5 +1,5 @@
 const config = require('./config.json')
-const {Client, Intents, MessageEmbed, CommandInteraction, ReactionUserManager} = require( 'discord.js' );
+const {Client, Intents, MessageEmbed, CommandInteraction, ReactionUserManager, Options} = require( 'discord.js' );
 const client = new Client( {intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_VOICE_STATES]} );
 //Start
 client.on('ready', () => {
@@ -29,7 +29,6 @@ client.distube = new DisTube(client, {
     youtubeDL: false,
     plugins: [new YtDlpPlugin(), new SpotifyPlugin()]
 })
-
 //Distube - muscic
 const disTubeInfo = require('./src/distube')
 disTubeInfo(client)

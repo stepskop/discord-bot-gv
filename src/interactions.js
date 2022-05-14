@@ -1,6 +1,8 @@
 const { MessageEmbed } = require('discord.js')
+const { Song } = require('distube')
 const distube = require('./distube')
 module.exports = (client) => {
+    
     client.on('interactionCreate', async (interaction) => {
         if (!interaction.isCommand()) {
             return
@@ -113,50 +115,31 @@ module.exports = (client) => {
                 case 'play':
                     try {
                         if (options.getString('search').includes('https://deezer')) {
-                            return interaction.reply({content:"Unsupported link"})
+                            return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription("Unsupported link")]})
                         }
                         //console.log(songG);
                         client.distube.play( voiceChannel, options.getString('search'), { textChannel: channel, member:member })
-
-                        //console.log(client.distube.on('addSong', (song) => song)) 
-                        //.songs.map((song)=> song)
-                        //
-                        // console.log(queue.songs.map(`${queue.songs.map(
-                        //     (song, id) => `\n**${id + 1}**. ${song.name} - \`${song.formattedDuration}\``)}`))
-                        //console.log(test)
-                        return interaction.reply({embeds: [new MessageEmbed().setColor("DARK_PURPLE").setDescription("ok"
-                        )]})
-                        // if (!queue) {
-                        //     return interaction.reply({content:"There is no queue"})
-                        // }
-                        // else {
-                        //     //queue += await client.distube.getQueue(voiceChannel)
-                        //     return interaction.reply({embeds: [new MessageEmbed().setColor("DARK_PURPLE").setDescription(`${queue.songs.map(
-                        //         (song, id) => `\n**${id + 1}**. ${song.name} - \`${song.formattedDuration}\``)}`
-                        //         )]})
-                        // }
-                        // return interaction.reply({content: "Tracks added to queue!"})
-                        //return interaction.reply({content: "ok"})
+                        return interaction.reply({content: "Added to queue! :arrow_down:"})
                         
                     } catch (errorPlay) {
-                        return interaction.reply({content:"Unsupported: " + errorPlay})
+                        return interaction.reply({embed: [new MessageEmbed().setColor("RED").setDescription("Error: " + errorPlay)]})
                     }
                     
     
                 case 'stop':
                     await queue.stop(voiceChannel)
                     queue = await client.distube.getQueue(voiceChannel)
-                    return interaction.reply({content:"Stopped"})
+                    return interaction.reply({embeds: [new MessageEmbed().setColor("PURPLE").setDescription("Stopped")]})
     
                 case 'skip':
                     try {
                         if (!queue) {
-                            return interaction.reply({content:"There is no tracks to skip"})
+                            return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription("There are no tracks to skip!")]})
                         }
                         else {
                             await queue.skip(voiceChannel)
                             queue = await client.distube.getQueue(voiceChannel)
-                            return interaction.reply({content: "Skipped to another track"})
+                            return interaction.reply({content: "Skipped to another track! :arrow_down:"})
                         }
                     } catch (errorSkip) {
                         return interaction.reply({content:"Unsupported"})
@@ -164,29 +147,29 @@ module.exports = (client) => {
                     
     
                 case 'queue':
-                    
+                    var queue = await client.distube.getQueue(voiceChannel)
                     if (!queue) {
-                        return interaction.reply({content:"There is no queue"})
+                        return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription("There is no queue")]})
                     }
                     else {
-                        //queue += await client.distube.getQueue(voiceChannel)
+                        
                         return interaction.reply({embeds: [new MessageEmbed().setColor("DARK_PURPLE").setDescription(`${queue.songs.map(
                             (song, id) => `\n**${id + 1}**. ${song.name} - \`${song.formattedDuration}\``)}`
                             )]})
                     }
                 case 'pause':
                     await queue.pause(voiceChannel)
-                    return interaction.reply({content: "Track has been paused"})
+                    return interaction.reply({embeds: [new MessageEmbed().setColor("PURPLE").setDescription("Track has been paused")]})
                 case 'resume':
                     await queue.resume(voiceChannel)
-                    return interaction.reply({content: "Track has been resumed"})
+                    return interaction.reply({embeds: [new MessageEmbed().setColor("PURPLE").setDescription("Track has been resumed")]})
                 case 'volume':
                     const volumeNum = options.getNumber('percent')
                     if (volumeNum > 100 || volumeNum < 1) {
-                        return interaction.reply({content: "Use number between 1 and 100"})
+                        return interaction.reply({embeds: [new MessageEmbed().setColor("ORANGE").setDescription("Use number between 1 and 100")]})
                     }
                     client.distube.setVolume(voiceChannel, volumeNum)
-                    return interaction.reply({content: `Volume has been set to \`${volumeNum}%\``})
+                    return interaction.reply({embeds: [new MessageEmbed().setColor("PURPLE").setDescription(`Volume has been set to \`${volumeNum}%\``)]})
             }
         } catch (e) {
             const errorEmbed = new MessageEmbed()
