@@ -36,7 +36,7 @@ disTubeInfo(client)
 const interactions = require('./src/interactions')
 interactions(client)
 //Role on join
-const onJoin = require('./src/guild-member-add')
+const onJoin = require('./src/on-join')
 onJoin(client)
 //Auth login
 client.login(config.token)
