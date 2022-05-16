@@ -57,7 +57,7 @@ module.exports = (client) => {
                 }
             } else {
                 return interaction.reply({
-                    embeds: [new MessageEmbed().setDescription("Use propper text channel ( <#823638576616833084> )")],
+                    embeds: [new MessageEmbed().setDescription("Use proper text channel ( <#823638576616833084> )")],
                     ephemeral: true
                 })
             }
