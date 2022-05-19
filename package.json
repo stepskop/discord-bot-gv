@@ -20,7 +20,6 @@
     "distube": "^3.3.4",
     "execa": "^6.1.0",
     "ffmpeg-static": "^4.4.1",
-    "heroku": "^7.60.2",
     "libsodium-wrappers": "^0.7.10",
     "mkdirp": "^1.0.4",
     "petitio": "^1.4.0",
