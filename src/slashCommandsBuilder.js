@@ -15,19 +15,46 @@ module.exports = (client) => {
         defaultPermission: false,
         options: [
             {
-                name: 'role',
-                description: 'For what role the message is.',
-                required: true,
-                type: 'ROLE'
+                name: 'user',
+                description: 'Send DM to specific user',
+                type: 'SUB_COMMAND',
+                options: [
+                    {
+                        name: 'user',
+                        description: 'For what user the message is.',
+                        required: true,
+                        type: 'USER'
+                    },
+                    {
+                        name: 'message',
+                        description: 'Messge you want to send',
+                        required: true,
+                        type: 'STRING'
+                    }
+                ]
             },
             {
-                name: 'message',
-                description: 'Messge you want to send',
-                required: true,
-                type: 'STRING'
+                name: 'role',
+                description: 'Send DM to role (all users that haa the role)',
+                type: 'SUB_COMMAND',
+                options: [
+                    {
+                        name: 'role',
+                        description: 'For what role the message is.',
+                        required: true,
+                        type: 'ROLE'
+                    },
+                    {
+                        name: 'message',
+                        description: 'Messge you want to send',
+                        required: true,
+                        type: 'STRING'
+                    }
+                ]
             }
         ]
     })
+    
     commands.create({
         name: 'roleall',
         description: 'Give role to all',

@@ -7,13 +7,11 @@ module.exports = (client) => {
         if (!interaction.isCommand()) {
             return
         }
-        
+
         const { commandName, options, member, channel } = interaction
-        
-        // console.log(interaction.channel.id)
         const guild = client.guilds.resolve("712268262347374632")
         const voiceChannel = member.voice.channel;
-        //console.log(typeof interaction.member.user.tag)
+        
         console.log("Executed /"+commandName+ " by "+ interaction.member.user.tag + " ("+ interaction.member.user.username + ")")
         if (commandName === 'play'||
         commandName === 'stop'|| 
@@ -52,7 +50,7 @@ module.exports = (client) => {
                 commandName === 'stop'
                 ) {
                     if (!queue) {
-                        return interaction.reply({embeds: [new MessageEmbed().setDescription("There is no queue or any track playing")], ephemeral: true})
+                        return interaction.reply({embeds: [new MessageEmbed().setDescription("There is no \*\*queue\*\* or \*\*track\*\* playing")], ephemeral: true})
                     }
                 }
             } else {
@@ -66,27 +64,36 @@ module.exports = (client) => {
             switch (commandName) {
                 case 'sendms':
                     if (interaction.member.id === '294676882081972226') {
-                        const roleArg = options.get('role')
-                        const messageArg = options.get('message')
-                        // console.log(roleArg.value)
-                        // console.log(messageArg.value)
-            
-                        guild.members.fetch( {force: true} ).then(user => {
-                            user.forEach(user => {
-                                if (user.roles.cache.has(roleArg.value) == true) {
-                                    //console.log(user.user.username)
-                                    user.send(messageArg.value)
-                                }
-                            })
-                        });
-            
-                        interaction.reply({
-                            content:'AdminSucces',
-                            ephemeral:true
-                        })
+                        switch (options.getSubcommand()) {
+                            case 'user':
+                                const userArg = options.getUser('user')
+                                const messageUserArg = options.get('message')
+                                userArg.send(messageUserArg.value)
+
+                                return interaction.reply({
+                                    content:'Succesfully sent to ' + "<@"+ userArg + ">",
+                                    ephemeral:true
+                                })
+                            case 'role':
+                                const roleArg = options.get('role')
+                                const messageRoleArg = options.get('message')
+                                guild.members.fetch( {force: true} ).then(user => {
+                                    user.forEach(user => {
+                                        if (user.roles.cache.has(roleArg.value) == true) {
+                                            //console.log(user.user.username)
+                                            user.send(messageRoleArg.value)
+                                        }
+                                    })
+                                });
+                                return interaction.reply({
+                                    content:'Succesfully sent to '+ "<@&"+ roleArg.value +">",
+                                    ephemeral:true
+                                })
+                        }
                     } else {
                         interaction.reply({
-                            content: "OK"
+                            content: "You are not able to send DM's now",
+                            ephemeral: true
                         })
                     }
                     break;
@@ -138,7 +145,7 @@ module.exports = (client) => {
                         }
                         //console.log(songG);
                         client.distube.play( voiceChannel, options.getString('search'), { textChannel: channel, member: member })
-                        return interaction.reply({content: "Added to queue! :arrow_down:"})
+                        return interaction.reply({content: "\*\*Added\*\*! :arrow_down:"})
                         
                     } catch (errorPlay) {
                         return interaction.reply({embed: [new MessageEmbed().setColor("RED").setDescription("Error: " + errorPlay)]})
@@ -148,27 +155,27 @@ module.exports = (client) => {
                 case 'stop':
                     await queue.stop(voiceChannel)
                     queue = await client.distube.getQueue(voiceChannel)
-                    return interaction.reply({embeds: [new MessageEmbed().setColor("PURPLE").setDescription("Stopped")]})
+                    return interaction.reply({embeds: [new MessageEmbed().setColor("PURPLE").setDescription("\*\*Stopped\*\* by <@" + interaction.member.user + ">")]})
     
                 case 'skip':
                     try {
                         if (!queue) {
-                            return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription("There are no tracks to skip!")]})
+                            return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription("There are no tracks to \*\*skip\*\*!")]})
                         }
                         else {
                             await queue.skip(voiceChannel)
                             queue = await client.distube.getQueue(voiceChannel)
-                            return interaction.reply({content: "Skipped to another track! :arrow_down:"})
+                            return interaction.reply({content: "\*\*Skipped\*\* to another track! :arrow_down:"})
                         }
                     } catch (errorSkip) {
-                        return interaction.reply({content:"Unsupported"})
+                        return interaction.reply({content:"Unsupported", ephemeral: true})
                     }
                     
     
                 case 'queue':
                     var queue = await client.distube.getQueue(voiceChannel)
                     if (!queue) {
-                        return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription("There is no queue")]})
+                        return interaction.reply({embeds: [new MessageEmbed().setDescription("There is no \*\*queue\*\*")], ephemeral:true})
                     }
                     else {
                         
@@ -178,25 +185,27 @@ module.exports = (client) => {
                     }
                 case 'pause':
                     await queue.pause(voiceChannel)
-                    return interaction.reply({embeds: [new MessageEmbed().setColor("PURPLE").setDescription("Track has been paused")]})
+                    return interaction.reply({embeds: [new MessageEmbed().setColor("PURPLE").setDescription("Track has been \*\*paused\*\* by <@" + interaction.member.user + ">")]})
                 case 'resume':
                     if (!queue) {
-                        return interaction.reply({embeds: [new MessageEmbed().setDescription("There is no queue or any track to be resumed")], ephemeral: true})
+                        return interaction.reply({embeds: [new MessageEmbed().setDescription("There is no \*\*queue\*\* or any track to be \*\*resumed\*\*")], ephemeral: true})
                     }
                     await queue.resume(voiceChannel)
-                    return interaction.reply({embeds: [new MessageEmbed().setColor("PURPLE").setDescription("Track has been resumed")]})
+                    return interaction.reply({embeds: [new MessageEmbed().setColor("PURPLE").setDescription("Track has been \*\*resumed\*\* by <@" + interaction.member.user + ">")]})
                 case 'volume':
                     const volumeNum = options.getNumber('percent')
                     if (volumeNum > 100 || volumeNum < 1) {
-                        return interaction.reply({embeds: [new MessageEmbed().setDescription("Use number between 1 and 100")], ephemeral: true})
+                        return interaction.reply({embeds: [new MessageEmbed().setDescription("Use number between \*\*1\*\* and \*\*100\*\*")], ephemeral: true})
                     }
                     client.distube.setVolume(voiceChannel, volumeNum)
                     return interaction.reply({embeds: [new MessageEmbed().setColor("PURPLE").setDescription(`Volume has been set to \`${volumeNum}%\``)]})
             }
         } catch (e) {
-            console.log(e)
+            //console.log(e)
             if (e.errorCode === "RESUMED") {
-                interaction.reply({embeds: [new MessageEmbed().setDescription("There is no paused track")], ephemeral:true})
+                interaction.reply({embeds: [new MessageEmbed().setDescription("There is no \*\*paused\*\* track")], ephemeral:true})
+            } else if (e.errorCode === "PAUSED"){
+                interaction.reply({embeds: [new MessageEmbed().setDescription("There is no track to \*\*pause\*\*")], ephemeral:true})
             } else {
             const errorEmbed = new MessageEmbed()
             .setColor("RED")
