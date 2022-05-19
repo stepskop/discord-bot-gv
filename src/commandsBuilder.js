@@ -1,8 +1,8 @@
-const { prefix } = require('../config.json')
+require("dotenv").config()
 module.exports = (client, alias, argCount, splitAfter, callback) => {
     client.on('messageCreate', message => {
         const { content } = message;
-        const command = prefix+alias
+        const command = process.env.PREFIX+alias
         const args = message.content.slice(command.length).trim().split(splitAfter);
         if (content.startsWith(command) || content === command) {
             console.log("Executed "+command)
