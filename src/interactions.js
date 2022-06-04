@@ -80,7 +80,7 @@ module.exports = (client) => {
                     return interaction.reply({embeds: [new MessageEmbed().setColor('DARK_PURPLE').setTitle('Commands').setDescription(
                     '\*\*/play\*\* - Plays music in you voice channel\n'+
                     '\*\*/skip\*\* - Skips to next track in queue\n'+
-                    '\*\*/queue\*\* - Shows whole queue of songs\n}'+
+                    '\*\*/queue\*\* - Shows whole queue of songs\n'+
                     '\*\*/volume\*\* - Select volume from 0 to 100\n'+
                     '\*\*/pause\*\* - Pauses the playing music\n'+
                     '\*\*/resume\*\* - Resumes the paused music\n'+
