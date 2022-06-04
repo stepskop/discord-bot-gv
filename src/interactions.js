@@ -10,9 +10,11 @@ module.exports = (client) => {
 
         const { commandName, options, member, channel } = interaction
         const guild = client.guilds.resolve("712268262347374632")
+        const usedChannel = interaction.channel.id
         const voiceChannel = member.voice.channel;
         
         console.log("Executed /"+commandName+ " by "+ interaction.member.user.tag + " ("+ interaction.member.user.username + ")")
+
         if (commandName === 'play'||
         commandName === 'stop'|| 
         commandName === 'skip'|| 
@@ -21,7 +23,6 @@ module.exports = (client) => {
         commandName === 'pause'|| 
         commandName === 'resume') {
             const allowedChannel = ["823638576616833084", "971013689958363166"]
-            const usedChannel = interaction.channel.id
             
             if (usedChannel === allowedChannel[0] || usedChannel === allowedChannel[1]) {
                 if (!voiceChannel) {
@@ -60,8 +61,23 @@ module.exports = (client) => {
                 })
             }
         }
+
+        if (commandName === 'roleall' || 
+        commandName === 'sendms' ||
+        commandName === 'help'
+        ) {
+            if (usedChannel != '982053578342559794') {
+                return interaction.reply({
+                embeds: [new MessageEmbed().setDescription("Use proper text channel ( <#982053578342559794> )")],
+                ephemeral: true
+                })
+            }
+        }
+
         try {
             switch (commandName) {
+                case 'help':
+                    return interaction.reply({embeds: [new MessageEmbed().setColor('DARK_PURPLE').setTitle('Commands').setDescription('<cheatsheet>')]})
                 case 'sendms':
                     if (interaction.member.id === '294676882081972226') {
                         switch (options.getSubcommand()) {

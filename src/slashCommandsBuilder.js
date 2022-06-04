@@ -128,4 +128,9 @@ module.exports = (client) => {
         name: 'resume',
         description: 'Resumes the track'
     })
+    commands.create({
+        name: 'help',
+        description: 'List of all commands'
+    })
+
 }
