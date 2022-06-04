@@ -77,12 +77,19 @@ module.exports = (client) => {
         try {
             switch (commandName) {
                 case 'help':
-                    return interaction.reply({embeds: [new MessageEmbed().setColor('DARK_PURPLE').setTitle('Commands').setDescription('<cheatsheet>')]})
+                    return interaction.reply({embeds: [new MessageEmbed().setColor('DARK_PURPLE').setTitle('Commands').setDescription(
+                    '\*\*/play\*\* - Plays music in you voice channel\n'+
+                    '\*\*/skip\*\* - Skips to next track in queue\n'+
+                    '\*\*/queue\*\* - Shows whole queue of songs\n}'+
+                    '\*\*/volume\*\* - Select volume from 0 to 100\n'+
+                    '\*\*/pause\*\* - Pauses the playing music\n'+
+                    '\*\*/resume\*\* - Resumes the paused music\n'+
+                    '\*\*/stop\*\* - Stops and disconnects bot')]})
                 case 'sendms':
                     if (interaction.member.id === '294676882081972226') {
                         switch (options.getSubcommand()) {
                             case 'user':
-                                const userArg = options.getUser('user')
+                                const userArg = options.getUser('user ')
                                 const messageUserArg = options.get('message')
                                 userArg.send(messageUserArg.value)
 
