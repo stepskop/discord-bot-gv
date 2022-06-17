@@ -89,7 +89,7 @@ module.exports = (client) => {
                     if (interaction.member.id === '294676882081972226') {
                         switch (options.getSubcommand()) {
                             case 'user':
-                                const userArg = options.getUser('user ')
+                                const userArg = options.getUser('user')
                                 const messageUserArg = options.get('message')
                                 userArg.send(messageUserArg.value)
 
