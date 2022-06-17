@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js')
-const firstMessage = require('../src/first-message')
+const firstMessage = require('./firstMessage')
 
 module.exports = (client) => {
     const channelId = '971084827845615636'

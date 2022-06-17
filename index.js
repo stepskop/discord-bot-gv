@@ -16,8 +16,11 @@ client.on('ready', () => {
     //Slash commands - builder
     const slashCommands = require('./src/slashCommandsBuilder')
     slashCommands(client)
+    //Game Deals
+    const gameDeals = require('./src/gameDeals')
+    gameDeals(client)
     //Role select
-    const roleSelect = require('./src/role-select');
+    const roleSelect = require('./src/roleSelect');
     roleSelect(client)
     //Verification
     const verify = require('./src/verify')
@@ -39,7 +42,7 @@ disTubeInfo(client)
 const interactions = require('./src/interactions')
 interactions(client)
 //Role on join
-const onJoin = require('./src/on-join')
+const onJoin = require('./src/onJoin')
 onJoin(client)
 //Auth login
 client.login(process.env.TOKEN)
