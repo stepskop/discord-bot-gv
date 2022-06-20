@@ -1,18 +1,20 @@
 const axios = require('axios')
-const {MessageEmbed} = require('discord.js')
-module.exports = (client, callback) => {
+const { MessageEmbed } = require('discord.js')
+module.exports = (client, interaction) => {
     axios.get('https://www.gamerpower.com/api/filter?platform=epic-games-store.steam.gog.battlenet.ubisoft-connect.origin&sort-by=rarity&type=game')
     .then((res) => {
         const channel = client.channels.cache.get('982053578342559794') // #general
         const testChannel = client.channels.cache.get('971013689958363166')// #bot-testing
-        var freeGameArray = []
-        var freeGamesList = {
-            embeds: []
+        let freeGameArray = []
+        let freeGamesList = {
+            embeds: [],
+            files: [],
+            ephemeral: true
         }
         for (let index = 0; index < Object.keys(res.data).length; index++) {
             const element = res.data[index]
             if (element.end_date === 'N/A') {
-                return
+                continue;
             }
             //##########################################################
             var timeStamp = new Date(element.end_date).getTime()/1000
@@ -49,26 +51,31 @@ module.exports = (client, callback) => {
                 .setDescription('~~' + element.worth + '~~ **Free** until <t:'+ timeStamp +':d>' + ' •' + element.platforms.split(',')[1] +'\n\n[**Get it for free**]('+ element.open_giveaway+')')
                 .setColor(0x36393f)
                 .setImage(element.image)
+
+
+                let attachments = {
+                    attachment:'src/gameDealsSrc/images/'+thumbnailUrl,
+                    name: thumbnailUrl
+                }
                 freeGameArray.push(freeGame)
-                
-                
-                
+                freeGamesList.files.push(attachments)
             //##########################################################
             } 
             catch (error) {
+                console.log(error)
                 testChannel.send(error)
             }
         }
 
-        freeGamesList.embeds.push(freeGameArray)
-        
-        channel.send({freeGamesList, 
-            files: [{
-                attachment:'src/gameDealsSrc/images'+thumbnailUrl,
-                name: thumbnailUrl
-            }]
-        })
-
+        try {
+            
+            freeGameArray.slice().reverse().forEach(embed =>{
+                freeGamesList.embeds.push(embed)
+            })
+            interaction.reply(freeGamesList)
+        } catch (error) {
+            console.log(error)
+        }
     })
-    callback(freeGamesList, thumbnailUrl, element)
+    
 }

@@ -4,7 +4,6 @@ const client = new Client( {intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_
 const dotenv = require('dotenv')
 dotenv.config()
 //Start
-console.log(process.env)
 client.on('ready', () => {
     const guild = client.guilds.resolve("712268262347374632")
     client.user.setActivity("my real owner", { type: 'LISTENING'})
