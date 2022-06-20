@@ -64,7 +64,8 @@ module.exports = (client) => {
 
         if (commandName === 'roleall' || 
         commandName === 'sendms' ||
-        commandName === 'help'
+        commandName === 'help' ||
+        commandName === 'free'
         ) {
             if (usedChannel != '982053578342559794') {
                 return interaction.reply({
@@ -76,6 +77,11 @@ module.exports = (client) => {
 
         try {
             switch (commandName) {
+                case 'free':
+                    const freeCommand = require('./commands/free')
+                    freeCommand(client, (freeGamesList, thumbnailUrl, element) => {
+                        return interaction.reply({freeGamesList})
+                    })
                 case 'help':
                     return interaction.reply({embeds: [new MessageEmbed().setColor('DARK_PURPLE').setTitle('Commands').setDescription(
                     '\*\*/play\*\* - Plays music in you voice channel\n'+

@@ -132,5 +132,9 @@ module.exports = (client) => {
         name: 'help',
         description: 'List of all commands'
     })
+    commands.create({
+        name: 'free',
+        description: 'Gives you hot game deals (sales)'
+    })
 
 }

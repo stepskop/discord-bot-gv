@@ -8,16 +8,16 @@ module.exports = (client) => {
         axios.get('https://www.gamerpower.com/api/filter?platform=epic-games-store.steam.gog.battlenet.ubisoft-connect.origin&sort-by=rarity&type=game')
         .then((res) => {
             var newKnown = []
-                for (let index = 0; index < alreadyKnown.length; index++) {
-                    const knownId = alreadyKnown[index]
-                    for (let indexY = 0; indexY < Object.keys(res.data).length; indexY++) {
+            for (let index = 0; index < alreadyKnown.length; index++) {
+                const knownId = alreadyKnown[index]
+                for (let indexY = 0; indexY < Object.keys(res.data).length; indexY++) {
                         const foundId = res.data[indexY].id
-                        if (knownId === foundId) {
-                            newKnown.push(foundId)
-                        }
+                    if (knownId === foundId) {
+                        newKnown.push(foundId)
                     }
                 }
-                alreadyKnown = newKnown
+            }
+            alreadyKnown = newKnown
             for (let index = 0; index < Object.keys(res.data).length; index++) {
                 const element = res.data[index]
                 if (element.end_date === 'N/A' || alreadyKnown.includes(element.id)) {
@@ -52,21 +52,24 @@ module.exports = (client) => {
                             testChannel.send('@Darkfoyet' + element)
                             break;
                     }
-                } catch (error) {
-                    
-                }
-                channel.send({embeds: [new MessageEmbed()
+                    const freeGame = new MessageEmbed()
                     .setThumbnail('attachment://'+ thumbnailUrl)
                     .setTitle(element.title)
                     .setDescription('~~' + element.worth + '~~ **Free** until <t:'+ timeStamp +':d>' + ' •' + element.platforms.split(',')[1] +'\n\n[**Get it for free**]('+ element.open_giveaway+')')
                     .setColor(0x36393f)
-                    .setImage(element.image)], 
-                    files: [{
-                        attachment:'src/gameDealsSrc/'+thumbnailUrl,
-                        name: thumbnailUrl
-                    }]})
+                    .setImage(element.image)
+
+                    channel.send({embeds: [freeGame], 
+                        files: [{
+                            attachment:'src/gameDealsSrc/images'+thumbnailUrl,
+                            name: thumbnailUrl
+                        }]})
                 //##########################################################
-                alreadyKnown.push(element.id)
+                    alreadyKnown.push(element.id)
+                } 
+                catch (error) {
+                    testChannel.send(error)
+                }
             }
         })
     }, 2000);
