@@ -1,10 +1,10 @@
 const axios = require('axios')
 const { MessageEmbed } = require('discord.js')
-module.exports = (client, interaction) => {
+module.exports = (config, client, interaction) => {
     axios.get('https://www.gamerpower.com/api/filter?platform=epic-games-store.steam.gog.battlenet.ubisoft-connect.origin&sort-by=rarity&type=game')
     .then((res) => {
-        const channel = client.channels.cache.get('982053578342559794') // #general
-        const testChannel = client.channels.cache.get('971013689958363166')// #bot-testing
+        const testChannel = client.channels.cache.get(config.testChannel)// #bot-testing
+
         let freeGameArray = []
         let freeGamesList = {
             embeds: [],

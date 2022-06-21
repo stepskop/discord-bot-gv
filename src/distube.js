@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js')
 
-module.exports = (client) => {
+module.exports = (config, client) => {
   const status = queue =>
   `Volume: \`${queue.volume}%\``
 client.distube

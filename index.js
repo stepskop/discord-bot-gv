@@ -1,6 +1,6 @@
-const path = require('path')
 const {Client, Intents, MessageEmbed, CommandInteraction, ReactionUserManager, Options} = require( 'discord.js' );
 const client = new Client( {intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS]} );
+const config = require('./config.json')
 const dotenv = require('dotenv')
 dotenv.config()
 //Start
@@ -10,23 +10,23 @@ client.on('ready', () => {
     console.log("OK")
     
     const command = require('./src/commandsBuilder')
-    command(client, 'clearComm', 1, ' ', (message, args) => {
+    command(config, client, 'clearComm', 1, ' ', (message, args) => {
         if (message.author.id === "294676882081972226") {
             guild.commands.set([])
         }
     })
     //Slash commands - builder
     const slashCommands = require('./src/slashCommandsBuilder')
-    slashCommands(client)
+    slashCommands(config, client)
     //Game Deals
     const gameDeals = require('./src/gameDeals')
-    gameDeals(client)
+    gameDeals(config, client)
     //Role select
     const roleSelect = require('./src/roleSelect');
-    roleSelect(client)
+    roleSelect(config, client)
     //Verification
     const verify = require('./src/verify')
-    verify(client)
+    verify(config, client)
 })
 //Distube - init
 const { DisTube, default: dist, Song } = require('distube')
@@ -40,14 +40,14 @@ client.distube = new DisTube(client, {
     leaveOnFinish: true,
     plugins: [new YtDlpPlugin(), new SpotifyPlugin()]
 })
-//Distube - muscic
+//Distube - music
 const disTubeInfo = require('./src/distube')
-disTubeInfo(client)
+disTubeInfo(config, client)
 //Slash Commands - exec
 const interactions = require('./src/interactions')
-interactions(client)
+interactions(config, client)
 //Role on join
 const onJoin = require('./src/onJoin')
-onJoin(client)
+onJoin(config, client)
 //Auth login
 client.login(process.env.TOKEN)

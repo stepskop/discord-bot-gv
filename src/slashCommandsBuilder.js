@@ -1,8 +1,8 @@
 const {} = require('discord.js')
 
 
-module.exports = (client) => {
-    const guild = client.guilds.resolve("712268262347374632")
+module.exports = (config, client) => {
+    const guild = client.guilds.resolve(config.guild)
     let commands;
     if (guild) {
         commands = guild.commands

@@ -1,8 +1,8 @@
 const { MessageEmbed } = require('discord.js')
 const firstMessage = require('./firstMessage')
 
-module.exports = (client) => {
-    const channelId = '971084827845615636'
+module.exports = (config, client) => {
+    const channelId = config.gameSelectChannel
 
     const getEmoji = (emojiName) => client.emojis.cache.find((emoji) => emoji.name === emojiName)
 
@@ -32,7 +32,7 @@ module.exports = (client) => {
 
     firstMessage(client, channelId, emojiEmbed, reactions)
     const handleReaction = (reaction, user, add) => {
-        if (user.id === '970985691427254273') {
+        if (user.id === config.thisBot) {
             return
         }
         const emoji = reaction._emoji.name

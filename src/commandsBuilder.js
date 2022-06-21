@@ -1,5 +1,5 @@
 require("dotenv").config()
-module.exports = (client, alias, argCount, splitAfter, callback) => {
+module.exports = (config, client, alias, argCount, splitAfter, callback) => {
     client.on('messageCreate', message => {
         const { content } = message;
         const command = process.env.PREFIX+alias
