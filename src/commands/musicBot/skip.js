@@ -7,7 +7,7 @@ module.exports = (config, client, interaction, voiceChannel, queue) => {
         else {
             await queue.skip(voiceChannel)
             queue = await client.distube.getQueue(voiceChannel)
-            return await interaction.reply({content: "\*\*Skipped\*\* to another track! :arrow_down:"})
+            return interaction.reply({content: "\*\*Skipped\*\* to another track! :arrow_down:"})
         }
     } catch (errorSkip) {
         return interaction.reply({content:"Unsupported", ephemeral: true})

@@ -103,7 +103,7 @@ module.exports = (config, client) => {
                 case 'play':
                     
                     const playCommand = require('./commands/musicBot/play')
-                    playCommand(config, client, interaction, voiceChannel, options)
+                    playCommand(config, client, interaction, voiceChannel, options, channel, member)
     
                 case 'stop':
 
