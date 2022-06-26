@@ -1,15 +1,15 @@
 const { MessageEmbed } = require('discord.js')
 module.exports = (config, client, interaction, voiceChannel, queue) => {
     try {
-        if (!queue) {
-            return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription("There are no tracks to \*\*skip\*\*!")]})
+        if (!queue || queue.songs.length == 1) {
+            return interaction.reply({embeds: [new MessageEmbed().setDescription("There are no tracks to \*\*skip\*\*!")]})
         }
         else {
-            await queue.skip(voiceChannel)
-            queue = await client.distube.getQueue(voiceChannel)
+            queue.skip(voiceChannel)
+            queue = client.distube.getQueue(voiceChannel)
             return interaction.reply({content: "\*\*Skipped\*\* to another track! :arrow_down:"})
         }
     } catch (errorSkip) {
         return interaction.reply({content:"Unsupported", ephemeral: true})
     }
-}
+}  

@@ -28,7 +28,7 @@ module.exports = (config, client) => {
                     let embed = new MessageEmbed()
                     .setDescription("You must be in voice channel!")
                     console.log('User is NOT in voice')
-                    return await interaction.reply({
+                    return interaction.reply({
                         embeds: [embed],
                         ephemeral: true
                     })
@@ -38,7 +38,7 @@ module.exports = (config, client) => {
                 if (guild.me.voice.channelId && voiceChannel.id !== guild.me.voice.channelId) {
                     let embed = new MessageEmbed()
                     .setDescription(`Already playing in <#"+ ${guild.me.voice.channelId}`)
-                    return await interaction.reply({
+                    return interaction.reply({
                         embeds: [embed],
                         ephemeral: true
                     })
@@ -50,11 +50,11 @@ module.exports = (config, client) => {
                 commandName === 'stop'
                 ) {
                     if (!queue) {
-                        return await interaction.reply({embeds: [new MessageEmbed().setDescription("There is no \*\*queue\*\* or \*\*track\*\* playing")], ephemeral: true})
+                        return interaction.reply({embeds: [new MessageEmbed().setDescription("There is no \*\*queue\*\* or \*\*track\*\* playing")], ephemeral: true})
                     }
                 }
             } else {
-                return await interaction.reply({
+                return interaction.reply({
                     embeds: [new MessageEmbed().setDescription("Use proper text channel ( <#823638576616833084> )")],
                     ephemeral: true
                 })
@@ -67,7 +67,7 @@ module.exports = (config, client) => {
         commandName === 'free'
         ) {
             if (usedChannel != config.commandsChannel) {
-                return await interaction.reply({
+                return interaction.reply({
                 embeds: [new MessageEmbed().setDescription("Use proper text channel ( <#982053578342559794> )")],
                 ephemeral: true
                 })
@@ -104,47 +104,54 @@ module.exports = (config, client) => {
                     
                     const playCommand = require('./commands/musicBot/play')
                     playCommand(config, client, interaction, voiceChannel, options, channel, member)
-    
+                    break
+
                 case 'stop':
 
                     const stopCommand = require('./commands/musicBot/stop')
                     stopCommand(config, client, interaction, voiceChannel, queue)
+                    break
     
                 case 'skip':
 
                     const skipCommand = require('./commands/musicBot/skip')
                     skipCommand(config, client, interaction, voiceChannel, queue)
+                    break
 
                 case 'queue':
                     //var queue = await client.distube.getQueue(voiceChannel)
                    const queueCommand = require('./commands/musicBot/queue')
                    queueCommand(config, client, interaction, voiceChannel, queue)
+                   break
 
                 case 'pause':
 
                     const pauseCommand = require('./commands/musicBot/pause')
                     pauseCommand(config, client, interaction, voiceChannel, queue)
+                    break
 
                 case 'resume':
 
                     const resumeCommand = require('./commands/musicBot/resume')
                     resumeCommand(config, client, interaction, voiceChannel, queue)
+                    break
 
                 case 'volume':
                     const volumeCommand = require('./commands/musicBot/volume')
-                    volumeCommand(config, client, interaction, options)
+                    volumeCommand(config, client, interaction, voiceChannel, options)
+                    break
             }
         } catch (e) {
             //console.log(e)
             if (e.errorCode === "RESUMED") {
-                await interaction.reply({embeds: [new MessageEmbed().setDescription("There is no \*\*paused\*\* track")], ephemeral:true})
+                interaction.reply({embeds: [new MessageEmbed().setDescription("There is no \*\*paused\*\* track")], ephemeral:true})
             } else if (e.errorCode === "PAUSED"){
-                await interaction.reply({embeds: [new MessageEmbed().setDescription("There is no track to \*\*pause\*\*")], ephemeral:true})
+                interaction.reply({embeds: [new MessageEmbed().setDescription("There is no track to \*\*pause\*\*")], ephemeral:true})
             } else {
             const errorEmbed = new MessageEmbed()
             .setColor("RED")
             .setDescription("Something went wrong. Error: "+ e)
-            await interaction.reply({embeds: [errorEmbed], ephemeral:true})
+            interaction.reply({embeds: [errorEmbed], ephemeral:true})
             }
         }
     })
