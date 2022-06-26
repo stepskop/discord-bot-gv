@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js')
-module.exports = (config, client, interaction) => {
+module.exports = (config, client, interaction, options) => {
     const volumeNum = options.getNumber('percent')
     if (volumeNum > 100 || volumeNum < 1) {
         return interaction.reply({embeds: [new MessageEmbed().setDescription("Use number between \*\*1\*\* and \*\*100\*\*")], ephemeral: true})

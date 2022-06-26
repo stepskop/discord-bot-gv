@@ -1,4 +1,4 @@
-module.exports = (config, client, interaction, guild) => {
+module.exports = (config, client, interaction, guild, options) => {
     if (interaction.member.id === config.admin) {
         switch (options.getSubcommand()) {
             case 'user':

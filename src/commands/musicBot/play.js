@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js')
-module.exports = (config, client, interaction, voiceChannel) => {
+module.exports = (config, client, interaction, voiceChannel, options) => {
     try {
         if (options.getString('search').includes('https://deezer')) {
             return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription("Unsupported link")]})

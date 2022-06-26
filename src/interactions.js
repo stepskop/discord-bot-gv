@@ -91,19 +91,19 @@ module.exports = (config, client) => {
                 case 'sendms':
 
                     const sendmsCommand = require('./commands/admin/sendms')
-                    sendmsCommand(config, client, interaction, guild)
+                    sendmsCommand(config, client, interaction, guild, options)
                     break;
 
                 case 'roleall':
 
                     const roleallCommand = require('./commands/admin/roleall')
-                    roleallCommand(config, client, interaction, guild)
+                    roleallCommand(config, client, interaction, guild, options)
                     break
 
                 case 'play':
                     
                     const playCommand = require('./commands/musicBot/play')
-                    playCommand(config, client, interaction, voiceChannel)
+                    playCommand(config, client, interaction, voiceChannel, options)
     
                 case 'stop':
 
@@ -132,7 +132,7 @@ module.exports = (config, client) => {
 
                 case 'volume':
                     const volumeCommand = require('./commands/musicBot/volume')
-                    volumeCommand(config, client, interaction)
+                    volumeCommand(config, client, interaction, options)
             }
         } catch (e) {
             //console.log(e)
