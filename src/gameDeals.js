@@ -1,12 +1,13 @@
 const axios = require('axios')
 const { MessageEmbed } = require('discord.js')
+const fs = require('fs')
 module.exports = (config, client) => {
     const channel = client.channels.cache.get(config.freeGamesChannel)
     const testChannel = client.channels.cache.get(config.testChannel)
-
-    var alreadyKnown = [1561, 1560, 900]
+    const trash = client.channels.cache.get('990689352755597422')
+    let alreadyKnown = config.alreadyKnownGames
     setInterval(() => {
-        testChannel.send("Requesting now, already known are:" + alreadyKnown)
+        //testChannel.send("Requesting now, already known are:" + alreadyKnown + ' ,in config: ' + config.alreadyKnownGames)
         axios.get('https://www.gamerpower.com/api/filter?platform=epic-games-store.steam.gog.battlenet.ubisoft-connect.origin&sort-by=rarity&type=game')
         .then((res) => {
             var newKnown = []
@@ -68,15 +69,22 @@ module.exports = (config, client) => {
                             name: thumbnailUrl
                         }]})
                 //##########################################################
-                    testChannel.send('Adding ' + element.id + 'to already known')
+                    //testChannel.send('Adding ' + element.id + ' to already known')
                     alreadyKnown.push(element.id)
-                    testChannel.send()
+                    try {
+                        let jsonString = fs.readFileSync('./config.json')
+                        let configString = JSON.parse(jsonString)
+                        configString.alreadyKnownGames = alreadyKnown
+                        fs.writeFileSync('./config.json', JSON.stringify(configString), err =>{})
+                    } catch (error) {
+                        console.log(error)
+                    }
                 }
                 catch (error) {
                     testChannel.send(error)
                 }
             }
-            testChannel.send('Request completed, already known are: '+ alreadyKnown)
+            //testChannel.send('Request completed, already known are: '+ alreadyKnown + ' ,in config: ' + configString.alreadyKnownGames)
         })
-    }, 1800000);
+    }, 10000);
 }
