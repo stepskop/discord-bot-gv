@@ -6,7 +6,7 @@ module.exports = (config, client, interaction, guild) => {
                 const messageUserArg = options.get('message')
                 userArg.send(messageUserArg.value)
 
-                return await interaction.reply({
+                return interaction.reply({
                     content:'Succesfully sent to ' + "<@"+ userArg + ">",
                     ephemeral:true
                 })
@@ -21,13 +21,13 @@ module.exports = (config, client, interaction, guild) => {
                         }
                     })
                 });
-                return await interaction.reply({
+                return interaction.reply({
                     content:'Succesfully sent to '+ "<@&"+ roleArg.value +">",
                     ephemeral:true
                 })
         }
     } else {
-        await interaction.reply({
+        interaction.reply({
             content: "You are not able to send DM's now",
             ephemeral: true
         })

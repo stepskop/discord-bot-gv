@@ -11,7 +11,7 @@ module.exports = (config, client, interaction, guild) => {
                         }
                     });
                 })
-                await interaction.reply({
+                interaction.reply({
                     content: "Sucessfully added",
                     ephemeral:true
                 })
@@ -24,7 +24,7 @@ module.exports = (config, client, interaction, guild) => {
                         }
                     });
                 })
-                await interaction.reply({
+                interaction.reply({
                     content: "Succesfully removed",
                     ephemeral:true
 
@@ -34,7 +34,7 @@ module.exports = (config, client, interaction, guild) => {
         console.log("Executed /"+commandName + " (authorized)")
     } else {
         console.log("Executed /"+commandName + " (unauthorized)")
-        await interaction.reply({
+        interaction.reply({
             content: "OK"
         })
     }

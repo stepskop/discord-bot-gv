@@ -1,7 +1,7 @@
 const { MessageEmbed } = require('discord.js')
 
 module.exports = (config, client, interaction) => {
-    return await interaction.reply({embeds: [new MessageEmbed().setColor('DARK_PURPLE').setTitle('Commands').setDescription(
+    return interaction.reply({embeds: [new MessageEmbed().setColor('DARK_PURPLE').setTitle('Commands').setDescription(
         '\n\n\`\`\`Game deals\`\`\`'+
         '\*\*/free\*\* - Gives you some hot ongoing game sales\n\n'+
         '\`\`\`Music bot\`\`\`'+

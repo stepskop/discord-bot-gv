@@ -2,7 +2,7 @@ const { MessageEmbed } = require('discord.js')
 module.exports = (config, client, interaction, voiceChannel, queue) => {
     try {
         if (!queue) {
-            return await interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription("There are no tracks to \*\*skip\*\*!")]})
+            return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription("There are no tracks to \*\*skip\*\*!")]})
         }
         else {
             await queue.skip(voiceChannel)
@@ -10,6 +10,6 @@ module.exports = (config, client, interaction, voiceChannel, queue) => {
             return await interaction.reply({content: "\*\*Skipped\*\* to another track! :arrow_down:"})
         }
     } catch (errorSkip) {
-        return await interaction.reply({content:"Unsupported", ephemeral: true})
+        return interaction.reply({content:"Unsupported", ephemeral: true})
     }
 }
