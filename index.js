@@ -6,7 +6,7 @@ dotenv.config()
 //Start
 client.on('ready', () => {
     const guild = client.guilds.resolve("712268262347374632")
-    client.user.setActivity("my real owner", { type: 'LISTENING'})
+    client.user.setActivity("/help", { type: 'LISTENING'})
     console.log("OK")
     
     const command = require('./src/commandsBuilder')
