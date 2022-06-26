@@ -4,8 +4,9 @@ module.exports = (config, client) => {
     const channel = client.channels.cache.get(config.freeGamesChannel)
     const testChannel = client.channels.cache.get(config.testChannel)
 
-    var alreadyKnown = config.alreadyKnownGames
+    var alreadyKnown = [1561, 1560, 900]
     setInterval(() => {
+        testChannel.send("Requesting now, already known are:" + alreadyKnown)
         axios.get('https://www.gamerpower.com/api/filter?platform=epic-games-store.steam.gog.battlenet.ubisoft-connect.origin&sort-by=rarity&type=game')
         .then((res) => {
             var newKnown = []
@@ -67,12 +68,15 @@ module.exports = (config, client) => {
                             name: thumbnailUrl
                         }]})
                 //##########################################################
+                    testChannel.send('Adding ' + element.id + 'to already known')
                     alreadyKnown.push(element.id)
-                } 
+                    testChannel.send()
+                }
                 catch (error) {
                     testChannel.send(error)
                 }
             }
+            testChannel.send('Request completed, already known are: '+ alreadyKnown)
         })
-    }, 3600000);
+    }, 1800000);
 }
