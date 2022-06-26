@@ -23,7 +23,7 @@ module.exports = (config, client) => {
             for (let index = 0; index < Object.keys(res.data).length; index++) {
                 const element = res.data[index]
                 if (element.end_date === 'N/A' || alreadyKnown.includes(element.id)) {
-                    return
+                    continue
                 }
                 //##########################################################
                 var timeStamp = new Date(element.end_date).getTime()/1000

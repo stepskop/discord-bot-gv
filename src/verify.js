@@ -47,7 +47,7 @@ module.exports = (config, client) => {
     client.on('messageReactionAdd', (reaction, user) => {
         if (reaction.message.channel.id === channelId) {
             handleReaction(reaction, user, true)
-            user.send({embeds: [new MessageEmbed().setTitle('Vítej na GameVibe').setColor('DARK_PURPLE').setDescription('Doufám že se ti tu bude líbit' + '\n\n' + 'Aby ostaní věděli co hraješ, vyber si role v **#⭐role-select⭐**' + '\n\n' + '*GameVibe*')]})
+            user.send({embeds: [new MessageEmbed().setTitle('Vítej na GameVibe').setColor('DARK_PURPLE').setDescription('Doufám že se ti tu bude líbit' + '\n\n' + 'Aby ostaní věděli co hraješ, vyber si role v **#🎮game-select🎮**' + '\n\n' + '*GameVibe*')]})
         }
     })
 }
