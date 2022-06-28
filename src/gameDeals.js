@@ -7,7 +7,7 @@ module.exports = (config, client) => {
     const trash = client.channels.cache.get('990689352755597422')
     let alreadyKnown = config.alreadyKnownGames
     setInterval(() => {
-        //testChannel.send("Requesting now, already known are:" + alreadyKnown + ' ,in config: ' + config.alreadyKnownGames)
+        testChannel.send("Requesting now, already known are:" + alreadyKnown + ' ,in config: ' + config.alreadyKnownGames)
         axios.get('https://www.gamerpower.com/api/filter?platform=epic-games-store.steam.gog.battlenet.ubisoft-connect.origin&sort-by=rarity&type=game')
         .then((res) => {
             var newKnown = []
@@ -23,6 +23,7 @@ module.exports = (config, client) => {
             alreadyKnown = newKnown
             for (let index = 0; index < Object.keys(res.data).length; index++) {
                 const element = res.data[index]
+
                 if (element.end_date === 'N/A' || alreadyKnown.includes(element.id)) {
                     continue
                 }
@@ -69,7 +70,7 @@ module.exports = (config, client) => {
                             name: thumbnailUrl
                         }]})
                 //##########################################################
-                    //testChannel.send('Adding ' + element.id + ' to already known')
+                    testChannel.send('Adding ' + element.id + ' to already known')
                     alreadyKnown.push(element.id)
                     try {
                         let jsonString = fs.readFileSync('./config.json')
@@ -84,7 +85,8 @@ module.exports = (config, client) => {
                     testChannel.send(error)
                 }
             }
-            //testChannel.send('Request completed, already known are: '+ alreadyKnown + ' ,in config: ' + configString.alreadyKnownGames)
+            const configUpdated = require('../config.json')
+            testChannel.send('Request completed, already known are: '+ alreadyKnown + ' ,in config: ' + configUpdated.alreadyKnownGames)
         })
-    }, 10000);
+    }, 900000);
 }
