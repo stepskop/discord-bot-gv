@@ -5,22 +5,30 @@ module.exports = (config, client) => {
     const channel = client.channels.cache.get(config.freeGamesChannel)
     const testChannel = client.channels.cache.get(config.testChannel)
     const trash = client.channels.cache.get('990689352755597422')
-    let alreadyKnown = config.alreadyKnownGames
+    
     setInterval(() => {
         testChannel.send("Requesting now, already known are:" + alreadyKnown + ' ,in config: ' + config.alreadyKnownGames)
         axios.get('https://www.gamerpower.com/api/filter?platform=epic-games-store.steam.gog.battlenet.ubisoft-connect.origin&sort-by=rarity&type=game')
         .then((res) => {
-            var newKnown = []
+            const configUpdated = require('../config.json')
+            let alreadyKnown = configUpdated.alreadyKnownGames
+            let newKnown = []
             for (let index = 0; index < alreadyKnown.length; index++) {
                 const knownId = alreadyKnown[index]
                 for (let indexY = 0; indexY < Object.keys(res.data).length; indexY++) {
                         const foundId = res.data[indexY].id
                     if (knownId === foundId) {
                         newKnown.push(foundId)
+                    } else if (foundId != knownId) {
+                        testChannel.send("Not in list" + foundId)
                     }
                 }
             }
+            testChannel.send("Old already known: " + alreadyKnown)
+            testChannel.send("NewKnown: " + newKnown)
             alreadyKnown = newKnown
+            testChannel.send("New already known: " + alreadyKnown)
+
             for (let index = 0; index < Object.keys(res.data).length; index++) {
                 const element = res.data[index]
 
@@ -85,8 +93,8 @@ module.exports = (config, client) => {
                     testChannel.send(error)
                 }
             }
-            const configUpdated = require('../config.json')
-            testChannel.send('Request completed, already known are: '+ alreadyKnown + ' ,in config: ' + configUpdated.alreadyKnownGames)
+            const newConfigUpdated = require('../config.json')
+            testChannel.send('Request completed, already known are: '+ newKnown + ' ,in config: ' + newConfigUpdated.alreadyKnownGames)
         })
     }, 900000);
 }
