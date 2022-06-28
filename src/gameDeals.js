@@ -84,6 +84,7 @@ module.exports = (config, client) => {
                         let jsonString = fs.readFileSync('./config.json')
                         let configString = JSON.parse(jsonString)
                         configString.alreadyKnownGames = newKnown
+                        testChannel.send(configString.alreadyKnownGames + " will be writed")
                         fs.writeFileSync('./config.json', JSON.stringify(configString), err =>{})
                     } catch (error) {
                         console.log(error)
