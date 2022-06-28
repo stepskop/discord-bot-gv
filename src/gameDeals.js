@@ -71,11 +71,11 @@ module.exports = (config, client) => {
                         }]})
                 //##########################################################
                     testChannel.send('Adding ' + element.id + ' to already known')
-                    alreadyKnown.push(element.id)
+                    newKnown.push(element.id)
                     try {
                         let jsonString = fs.readFileSync('./config.json')
                         let configString = JSON.parse(jsonString)
-                        configString.alreadyKnownGames = alreadyKnown
+                        configString.alreadyKnownGames = newKnown
                         fs.writeFileSync('./config.json', JSON.stringify(configString), err =>{})
                     } catch (error) {
                         console.log(error)
