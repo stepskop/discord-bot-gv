@@ -5,10 +5,24 @@ module.exports = (config, client, interaction, voiceChannel, queue) => {
             return interaction.reply({embeds: [new MessageEmbed().setDescription("There is no \*\*queue\*\*")]})
         }
         else {
-            
-            return interaction.reply({embeds: [new MessageEmbed().setColor("DARK_PURPLE").setDescription(`${queue.songs.map(
-                (song, id) => `\n**${id + 1}**. ${song.name} - \`${song.formattedDuration}\``)}`
-                )]})
+            try {
+                // console.log(Object.keys(queue.songs).length)
+                // let displayQueue = queue
+                // Object.keys(displayQueue.songs).length = 20
+                // console.log(Object.keys(displayQueue.songs).length)
+                //console.log(displayQueue.songs.song.name)
+
+                if (Object.keys(queue.songs).length < 20) {
+                    return interaction.reply({embeds: [new MessageEmbed().setColor("DARK_PURPLE").setDescription(`${queue.songs.map(
+                        (song, id) => `\n**${id + 1}**. ${song.name} - \`${song.formattedDuration}\``)}`
+                        )]})
+                } else {
+                    return interaction.reply({embeds: [new MessageEmbed().setColor("DARK_PURPLE").setDescription('In queue is ' + Object.keys(queue.songs).length + " songs")]})
+                }
+                
+            } catch (error) {
+                console.log(error)
+            }
         }
     } catch (e) {
         if (e.errorCode === "RESUMED") {
