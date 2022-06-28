@@ -7,12 +7,13 @@ module.exports = (config, client) => {
     const trash = client.channels.cache.get('990689352755597422')
     
     setInterval(() => {
-        testChannel.send("Requesting now, already known are:" + alreadyKnown + ' ,in config: ' + config.alreadyKnownGames)
+        
         axios.get('https://www.gamerpower.com/api/filter?platform=epic-games-store.steam.gog.battlenet.ubisoft-connect.origin&sort-by=rarity&type=game')
         .then((res) => {
             const configUpdated = require('../config.json')
             let alreadyKnown = configUpdated.alreadyKnownGames
             let newKnown = []
+            testChannel.send("Requesting now, already known are:" + alreadyKnown + ' ,in config: ' + config.alreadyKnownGames)
             for (let index = 0; index < alreadyKnown.length; index++) {
                 const knownId = alreadyKnown[index]
                 for (let indexY = 0; indexY < Object.keys(res.data).length; indexY++) {
