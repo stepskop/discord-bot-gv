@@ -14,5 +14,5 @@ module.exports = (config, client, interaction) => {
         '\*\*/stop\*\* - Stops and disconnects bot\n\n'+
         '\`\`\`Admin commands\`\`\`'+
         '\*\*/roleall\*\* - Gives role to all members (excluding bots)\n'+
-        '\*\*/sendms\*\* - Send direct message to specific USER or ROLE')]})
+        '\*\*/sendms\*\* - Send direct message to specific USER or ROLE')], ephemeral: true})
 }
