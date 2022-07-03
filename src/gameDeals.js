@@ -11,7 +11,7 @@ module.exports = (config, client) => {
         .then((res) => {
             let alreadyKnown = JSON.parse(fs.readFileSync('./config.json')).alreadyKnownGames
             let newKnown = []
-            //testChannel.send("Requesting now, already known are:" + alreadyKnown + ' ,in config: ' + config.alreadyKnownGames)
+            testChannel.send("Requesting now, already known are:" + alreadyKnown + ' ,in config: ' + config.alreadyKnownGames)
             for (let index = 0; index < alreadyKnown.length; index++) {
                 const knownId = alreadyKnown[index]
                 for (let indexY = 0; indexY < Object.keys(res.data).length; indexY++) {
@@ -21,10 +21,10 @@ module.exports = (config, client) => {
                     }
                 }
             }
-            //testChannel.send("Old already known: " + alreadyKnown)
-            //testChannel.send("NewKnown: " + newKnown)
+            testChannel.send("Old already known: " + alreadyKnown)
+            testChannel.send("NewKnown: " + newKnown)
             alreadyKnown = newKnown
-            //testChannel.send("New already known: " + alreadyKnown)
+            testChannel.send("New already known: " + alreadyKnown)
 
             for (let index = 0; index < Object.keys(res.data).length; index++) {
                 const element = res.data[index]
@@ -75,7 +75,7 @@ module.exports = (config, client) => {
                             name: thumbnailUrl
                         }]})
                 //##########################################################
-                    //testChannel.send('Adding ' + element.id + ' to already known')
+                    testChannel.send('Adding ' + element.id + ' to already known')
                     alreadyKnown.push(element.id)
                     
                 }
@@ -87,15 +87,15 @@ module.exports = (config, client) => {
                 let jsonString = fs.readFileSync('./config.json')
                 let configString = JSON.parse(jsonString)
                 configString.alreadyKnownGames = alreadyKnown
-                //testChannel.send(configString.alreadyKnownGames + " will be writed")
+                testChannel.send(configString.alreadyKnownGames + " will be writed")
                 fs.writeFileSync('./config.json', JSON.stringify(configString), err =>{})
             } catch (error) {
                 console.log("Error while writing to config.json: " + error)
             }
 
             //Troubleshooting
-            // let newUpdatedConfigString = JSON.parse(fs.readFileSync('./config.json')).alreadyKnownGames
-            // testChannel.send('Request completed, already known are: '+ newKnown + ' ,in config: ' + newUpdatedConfigString)
+            let newUpdatedConfigString = JSON.parse(fs.readFileSync('./config.json')).alreadyKnownGames
+            testChannel.send('Request completed, already known are: '+ newKnown + ' ,in config: ' + newUpdatedConfigString)
         })
     }, 900000);
 }
