@@ -1,4 +1,3 @@
-//Troubleshoot
 const axios = require('axios')
 const { MessageEmbed } = require('discord.js')
 const fs = require('fs')
