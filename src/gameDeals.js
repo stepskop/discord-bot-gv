@@ -5,7 +5,7 @@ module.exports = (config, client) => {
     const channel = client.channels.cache.get(config.freeGamesChannel)
     const testChannel = client.channels.cache.get(config.testChannel)
     const trash = client.channels.cache.get('990689352755597422')
-    
+    //Troubleshooting
     setInterval(() => {       
         axios.get('https://www.gamerpower.com/api/filter?platform=epic-games-store.steam.gog.battlenet.ubisoft-connect.origin&sort-by=rarity&type=game')
         .then((res) => {
