@@ -1,6 +1,5 @@
 const {Client, Intents, MessageEmbed, CommandInteraction, ReactionUserManager, Options} = require( 'discord.js' );
 const client = new Client( {intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS]} );
-const mongoose = require('mongoose')
 const config = require('./config.json')
 const dotenv = require('dotenv')
 dotenv.config()
@@ -9,7 +8,7 @@ client.on('ready', () => {
     const guild = client.guilds.resolve("712268262347374632")
     client.user.setActivity("/help", { type: 'LISTENING'})
     console.log("OK")
- 
+    
     const command = require('./src/commandsBuilder')
     command(config, client, 'clearComm', 1, ' ', (message, args) => {
         if (message.author.id === "294676882081972226") {

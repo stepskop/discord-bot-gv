@@ -1,24 +1,17 @@
 const axios = require('axios')
 const { MessageEmbed } = require('discord.js')
 const fs = require('fs')
-
 module.exports = (config, client) => {
     const channel = client.channels.cache.get(config.freeGamesChannel)
     const testChannel = client.channels.cache.get(config.testChannel)
-    //const trash = client.channels.cache.get('990689352755597422')
+    const trash = client.channels.cache.get('990689352755597422')
     
-    setInterval(() => {  
-        
-        
-        
-
-
-
+    setInterval(() => {       
         axios.get('https://www.gamerpower.com/api/filter?platform=epic-games-store.steam.gog.battlenet.ubisoft-connect.origin&sort-by=rarity&type=game')
         .then((res) => {
             let alreadyKnown = JSON.parse(fs.readFileSync('./config.json')).alreadyKnownGames
             let newKnown = []
-            testChannel.send("Requesting now, already known are:" + alreadyKnown + ' ,in config: ' + JSON.parse(fs.readFileSync('./config.json')).alreadyKnownGames)
+            testChannel.send("Requesting now, already known are:" + alreadyKnown + ' ,in config: ' + config.alreadyKnownGames)
             for (let index = 0; index < alreadyKnown.length; index++) {
                 const knownId = alreadyKnown[index]
                 for (let indexY = 0; indexY < Object.keys(res.data).length; indexY++) {
@@ -75,7 +68,7 @@ module.exports = (config, client) => {
                     .setColor(0x36393f)
                     .setImage(element.image)
 
-                    testChannel.send({
+                    channel.send({
                         embeds: [freeGame], 
                         files: [{
                             attachment:'src/gameDealsSrc/images/'+thumbnailUrl,

@@ -37,7 +37,7 @@ module.exports = (config, client) => {
                 }
                 if (guild.me.voice.channelId && voiceChannel.id !== guild.me.voice.channelId) {
                     let embed = new MessageEmbed()
-                    .setDescription(`Already playing in <#${guild.me.voice.channelId}>`)
+                    .setDescription(`Already playing in <#"+ ${guild.me.voice.channelId}`)
                     return interaction.reply({
                         embeds: [embed],
                         ephemeral: true
