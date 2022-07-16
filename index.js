@@ -38,7 +38,7 @@ client.distube = new DisTube(client, {
     leaveOnEmpty: true,
     leaveOnStop: true,
     leaveOnFinish: true,
-    plugins: [new YtDlpPlugin(), new SpotifyPlugin()]
+    plugins: [new YtDlpPlugin({update: true}), new SpotifyPlugin()]
 })
 //Distube - music
 const disTubeInfo = require('./src/distube')
