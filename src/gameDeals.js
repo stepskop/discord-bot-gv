@@ -98,6 +98,6 @@ module.exports = (config, client, database) => {
             }
             dbOperations()
         })
-    }, 900000);
+    }, 10000);
 }
 
