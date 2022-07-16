@@ -16,7 +16,8 @@ module.exports = (config, client, database) => {
                     const mongoQuerry = await coll.findOne({ testIndex: 1 })
 
                     let alreadyKnown = mongoQuerry.games
-                    console.log(alreadyKnown)
+                    //console.log(alreadyKnown)
+                    testChannel.send('Requesting now, alreadyKnowns: ' + alreadyKnown)
                     let newKnown = []
 
                     for (let index = 0; index < alreadyKnown.length; index++) {
@@ -88,6 +89,8 @@ module.exports = (config, client, database) => {
                     }
 
                     await coll.updateOne({testIndex: 1}, {$set: {games: alreadyKnown}})
+                    const mongoQuerryUpdated = await coll.findOne({ testIndex: 1 })
+                    testChannel.send('Requesting done!, alreadyKnowns: ' + mongoQuerryUpdated.games)
                 } catch(e) {
                     console.log(e)
                 }

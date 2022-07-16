@@ -9,7 +9,7 @@ dotenv.config()
 client.on('ready', () => {
     const guild = client.guilds.resolve("712268262347374632")
     client.user.setActivity("/help", { type: 'LISTENING'})
-    console.log("OK")
+    console.log("OK, runnig v1.0")
     
     const database = new MongoClient(process.env.MONGO_SRV)
 
