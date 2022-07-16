@@ -39,9 +39,9 @@ const { YtDlpPlugin } = require('@distube/yt-dlp')
 const { VoiceConnection } = require('@discordjs/voice')
 client.distube = new DisTube(client, {
     youtubeDL: false,
-    leaveOnEmpty: true,
-    leaveOnStop: true,
-    leaveOnFinish: true,
+    // leaveOnEmpty: true,
+    // leaveOnStop: true,
+    // leaveOnFinish: true,
     plugins: [new YtDlpPlugin({update: true}), new SpotifyPlugin()]
 })
 //Distube - music
