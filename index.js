@@ -5,12 +5,11 @@ const config = require('./config.json')
 const dotenv = require('dotenv')
 const { MongoClient } = require('mongodb')
 dotenv.config()
-console.log(process.env)
 //Start
 client.on('ready', () => {
     const guild = client.guilds.resolve("712268262347374632")
     client.user.setActivity("/help", { type: 'LISTENING'})
-    console.log("OK, running v1.1")
+    console.log("OK, running v1.2")
     
     const database = new MongoClient(process.env.MONGO_SRV)
 
