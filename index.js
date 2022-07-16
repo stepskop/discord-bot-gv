@@ -1,14 +1,19 @@
 const {Client, Intents, MessageEmbed, CommandInteraction, ReactionUserManager, Options} = require( 'discord.js' );
 const client = new Client( {intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS]} );
+const mongoose = require('mongoose')
 const config = require('./config.json')
 const dotenv = require('dotenv')
+const { MongoClient } = require('mongodb')
 dotenv.config()
+console.log(process.env)
 //Start
 client.on('ready', () => {
     const guild = client.guilds.resolve("712268262347374632")
     client.user.setActivity("/help", { type: 'LISTENING'})
-    console.log("OK")
+    console.log("OK, running v1.1")
     
+    const database = new MongoClient(process.env.MONGO_SRV)
+
     const command = require('./src/commandsBuilder')
     command(config, client, 'clearComm', 1, ' ', (message, args) => {
         if (message.author.id === "294676882081972226") {
@@ -20,7 +25,7 @@ client.on('ready', () => {
     slashCommands(config, client)
     //Game Deals
     const gameDeals = require('./src/gameDeals')
-    gameDeals(config, client)
+    gameDeals(config, client, database)
     //Role select
     const roleSelect = require('./src/roleSelect');
     roleSelect(config, client)
@@ -38,7 +43,7 @@ client.distube = new DisTube(client, {
     leaveOnEmpty: true,
     leaveOnStop: true,
     leaveOnFinish: true,
-    plugins: [new YtDlpPlugin({update: true}), new SpotifyPlugin()]
+    plugins: [new YtDlpPlugin(), new SpotifyPlugin()]
 })
 //Distube - music
 const disTubeInfo = require('./src/distube')
@@ -51,3 +56,5 @@ const onJoin = require('./src/onJoin')
 onJoin(config, client)
 //Auth login
 client.login(process.env.TOKEN)
+
+
