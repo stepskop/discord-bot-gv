@@ -1,7 +1,9 @@
 const {Client, Intents, MessageEmbed, CommandInteraction, ReactionUserManager, Options} = require( 'discord.js' );
 const client = new Client( {intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS]} );
+const mongoose = require('mongoose')
 const config = require('./config.json')
 const dotenv = require('dotenv')
+const { MongoClient } = require('mongodb')
 dotenv.config()
 //Start
 client.on('ready', () => {
@@ -9,6 +11,8 @@ client.on('ready', () => {
     client.user.setActivity("/help", { type: 'LISTENING'})
     console.log("OK")
     
+    const database = new MongoClient(process.env.MONGO_SRV)
+
     const command = require('./src/commandsBuilder')
     command(config, client, 'clearComm', 1, ' ', (message, args) => {
         if (message.author.id === "294676882081972226") {
@@ -20,7 +24,7 @@ client.on('ready', () => {
     slashCommands(config, client)
     //Game Deals
     const gameDeals = require('./src/gameDeals')
-    gameDeals(config, client)
+    gameDeals(config, client, database)
     //Role select
     const roleSelect = require('./src/roleSelect');
     roleSelect(config, client)
@@ -51,3 +55,5 @@ const onJoin = require('./src/onJoin')
 onJoin(config, client)
 //Auth login
 client.login(process.env.TOKEN)
+
+
