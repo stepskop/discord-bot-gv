@@ -64,7 +64,8 @@ module.exports = (config, client) => {
         if (commandName === 'roleall' || 
         commandName === 'sendms' ||
         commandName === 'help' ||
-        commandName === 'free'
+        commandName === 'free' ||
+        commandName === 'mcserver'
         ) {
             if (usedChannel != config.commandsChannel) {
                 return interaction.reply({
@@ -76,6 +77,12 @@ module.exports = (config, client) => {
 
         try {
             switch (commandName) {
+                case 'mcserver':
+
+                    const mcserverCommand = require('./commands/admin/mcserver')
+                    mcserverCommand(config, client, interaction, guild, options)
+                    break; 
+
                 case 'free':
                     
                     const freeCommand = require('./commands/gameDeals/free')

@@ -9,7 +9,7 @@ dotenv.config()
 client.on('ready', () => {
     const guild = client.guilds.resolve("712268262347374632")
     client.user.setActivity("/help", { type: 'LISTENING'})
-    console.log("OK, running v1.2")
+    console.log("OK, running v1.3")
     
     const database = new MongoClient(process.env.MONGO_SRV)
 
@@ -25,6 +25,9 @@ client.on('ready', () => {
     //Game Deals
     const gameDeals = require('./src/gameDeals')
     gameDeals(config, client, database)
+    //MC Server Status
+    const mcServerStatus = require('./src/mcServerStatus')
+    mcServerStatus(config, client)
     //Role select
     const roleSelect = require('./src/roleSelect');
     roleSelect(config, client)

@@ -9,6 +9,25 @@ module.exports = (config, client) => {
     } else {
         commands = client.application.commands
     }
+
+    commands.create({
+        name: 'mcserver',
+        description: 'Operate with mcserver',
+        defaultPermission: false,
+        options: [
+            {
+                name: 'start',
+                description: 'Start your server and get IP',
+                type: 'SUB_COMMAND'
+            },
+            {
+                name: 'ip',
+                description: 'Get IP',
+                type: 'SUB_COMMAND' 
+            }
+        ]
+    })
+
     commands.create({
         name: 'sendms',
         description: '1. Sends direct message',
@@ -54,7 +73,6 @@ module.exports = (config, client) => {
             }
         ]
     })
-    
     commands.create({
         name: 'roleall',
         description: 'Give role to all',

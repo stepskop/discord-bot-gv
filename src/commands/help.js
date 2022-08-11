@@ -4,6 +4,8 @@ module.exports = (config, client, interaction) => {
     return interaction.reply({embeds: [new MessageEmbed().setColor('DARK_PURPLE').setTitle('Commands').setDescription(
         '\n\n\`\`\`Game deals\`\`\`'+
         '\*\*/free\*\* - Gives you some hot ongoing game sales\n\n'+
+        '\`\`\`Minecraft server\`\`\`'+
+        '\*\*/mcserver ip\*\* - Gives status and IP to our Minecraft server\n\n'+
         '\`\`\`Music bot\`\`\`'+
         '\*\*/play\*\* - Plays music in you voice channel\n'+
         '\*\*/skip\*\* - Skips to next track in queue\n'+
@@ -14,5 +16,6 @@ module.exports = (config, client, interaction) => {
         '\*\*/stop\*\* - Stops and disconnects bot\n\n'+
         '\`\`\`Admin commands\`\`\`'+
         '\*\*/roleall\*\* - Gives role to all members (excluding bots)\n'+
-        '\*\*/sendms\*\* - Send direct message to specific USER or ROLE')], ephemeral: true})
+        '\*\*/sendms\*\* - Send direct message to specific USER or ROLE\n'+
+        '\*\*/mcserver start\*\* - Starts our Minecraft server and gives IP')], ephemeral: true})
 }
