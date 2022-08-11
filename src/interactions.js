@@ -1,4 +1,5 @@
 const { MessageEmbed } = require('discord.js')
+const pc = require('./commands/admin/pc')
 module.exports = (config, client) => {
     
     client.on('interactionCreate', async (interaction) => {
@@ -65,7 +66,8 @@ module.exports = (config, client) => {
         commandName === 'sendms' ||
         commandName === 'help' ||
         commandName === 'free' ||
-        commandName === 'mcserver'
+        commandName === 'mcserver'||
+        commandName === 'pc'
         ) {
             if (usedChannel != config.commandsChannel) {
                 return interaction.reply({
@@ -77,6 +79,11 @@ module.exports = (config, client) => {
 
         try {
             switch (commandName) {
+                case 'pc':
+                    const pcCommand = require('./commands/admin/pc')
+                    pcCommand(config, client, interaction, guild, options)
+                    break;
+
                 case 'mcserver':
 
                     const mcserverCommand = require('./commands/admin/mcserver')

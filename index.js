@@ -9,16 +9,26 @@ dotenv.config()
 client.on('ready', () => {
     const guild = client.guilds.resolve("712268262347374632")
     client.user.setActivity("/help", { type: 'LISTENING'})
-    console.log("OK, running v1.3")
+    console.log("OK, running v1.4")
     
     const database = new MongoClient(process.env.MONGO_SRV)
 
     const command = require('./src/commandsBuilder')
     command(config, client, 'clearComm', 1, ' ', (message, args) => {
-        if (message.author.id === "294676882081972226") {
+        if (message.author.id === config.admin) {
             guild.commands.set([])
         }
     })
+
+    command(config, client, 'shutdown', 1, ' ', (message, args) => {
+        if (message.author.id === "832731781231804447") { //IFTTT
+            const testChannel = client.channels.cache.get(config.testChannel)
+            testChannel.send({embeds: [new MessageEmbed().setColor('ORANGE').setTitle('Shuting down my birthplace...')]})
+            const birthplace = require('./src/birthplace')
+            birthplace(config, client, 'off')
+        }
+    })
+
     //Slash commands - builder
     const slashCommands = require('./src/slashCommandsBuilder')
     slashCommands(config, client)

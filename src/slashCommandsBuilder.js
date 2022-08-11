@@ -11,6 +11,24 @@ module.exports = (config, client) => {
     }
 
     commands.create({
+        name: 'pc',
+        description: 'Operate with birthplace',
+        defaultPermission: false,
+        options: [
+            {
+                name: 'on',
+                description: 'Heats up the birthplace',
+                type: 'SUB_COMMAND'
+            },
+            {
+                name: 'off',
+                description: 'Shuts down the birthplace',
+                type: 'SUB_COMMAND' 
+            }
+        ]
+    })
+
+    commands.create({
         name: 'mcserver',
         description: 'Operate with mcserver',
         defaultPermission: false,
