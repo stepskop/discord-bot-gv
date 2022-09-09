@@ -31,7 +31,7 @@
     "mongoose": "^6.4.4",
     "opusscript": "^0.0.8",
     "petitio": "^1.4.0",
-    "ytdl-core": "^4.11.0",
+    "ytdl-core": "^4.11.2",
     "ytpl": "^2.3.0",
     "ytsr": "^3.8.0"
   }
