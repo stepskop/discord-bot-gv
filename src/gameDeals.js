@@ -6,7 +6,8 @@ module.exports = (config, client, database) => {
     const testChannel = client.channels.cache.get(config.testChannel)
 
     setInterval(() => {  
-        axios.get('https://www.gamerpower.com/api/filter?platform=epic-games-store.steam.gog.battlenet.ubisoft-connect.origin&sort-by=rarity&type=game')
+        try {
+            axios.get('https://www.gamerpower.com/api/filter?platform=epic-games-store.steam.gog.battlenet.ubisoft-connect.origin&sort-by=rarity&type=game')
         .then((res) => {
             const dbOperations = async () => {
                 try {
@@ -98,6 +99,9 @@ module.exports = (config, client, database) => {
             }
             dbOperations()
         })
+        } catch (error) {
+            console.log(error)
+        }
     }, 900000);
 }
 
