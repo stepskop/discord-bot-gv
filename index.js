@@ -1,6 +1,6 @@
 const {Client, Intents, MessageEmbed, CommandInteraction, ReactionUserManager, Options} = require( 'discord.js' );
 const client = new Client( {intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS]} );
-const mongoose = require('mongoose')
+//const mongoose = require('mongoose')
 const config = require('./config.json')
 const dotenv = require('dotenv')
 const { MongoClient } = require('mongodb')
@@ -9,7 +9,7 @@ dotenv.config()
 client.on('ready', () => {
     const guild = client.guilds.resolve("712268262347374632")
     client.user.setActivity("/help", { type: 'LISTENING'})
-    console.log("OK, running v1.4")
+    console.log("OK, running v1.5")
     
     const database = new MongoClient(process.env.MONGO_SRV)
 
@@ -42,8 +42,8 @@ client.on('ready', () => {
     const roleSelect = require('./src/roleSelect');
     roleSelect(config, client)
     //Verification
-    const verify = require('./src/verify')
-    verify(config, client)
+    //const verify = require('./src/verify')
+    //verify(config, client)
 })
 //Distube - init
 const { DisTube, default: dist, Song } = require('distube')
