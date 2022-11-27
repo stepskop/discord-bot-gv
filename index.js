@@ -36,8 +36,8 @@ client.on('ready', () => {
     const gameDeals = require('./src/gameDeals')
     gameDeals(config, client, database)
     //MC Server Status
-    const mcServerStatus = require('./src/mcServerStatus')
-    mcServerStatus(config, client)
+    // const mcServerStatus = require('./src/mcServerStatus')
+    // mcServerStatus(config, client)
     //Role select
     const roleSelect = require('./src/roleSelect');
     roleSelect(config, client)
