@@ -8,6 +8,10 @@ module.exports = (config, client) => {
             const role = guildMember.guild.roles.cache.find((role) => role.id == element)
             guildMember.roles.add(role);
         });
-        guildMember.send({embeds: [new MessageEmbed().setTitle('Vítej na GameVibe').setColor('DARK_PURPLE').setDescription('Doufám že se ti tu bude líbit' + '\n\n' + 'Aby ostaní věděli co hraješ, vyber si role v **#🎮game-select🎮**' + '\n\n' + '*GameVibe*')]})
+        try {
+            guildMember.send({embeds: [new MessageEmbed().setTitle('Vítej na GameVibe').setColor('DARK_PURPLE').setDescription('Doufám že se ti tu bude líbit' + '\n\n' + 'Aby ostaní věděli co hraješ, vyber si role v **#🎮game-select🎮**' + '\n\n' + '*GameVibe*')]})
+        } catch (error) {
+            console.log(error);
+        }
     });
 }
