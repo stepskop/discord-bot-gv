@@ -100,6 +100,9 @@ module.exports = (config, client, database) => {
                 }
                 dbOperations()
             })
+            .catch(() => {
+                console.log("GGWP")
+            })
             } catch (error) {
                 console.log(error)
             }
