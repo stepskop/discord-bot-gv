@@ -1,0 +1,28 @@
+diff --git a/node_modules/distube/dist/core/voice/DisTubeVoice.js b/node_modules/distube/dist/core/voice/DisTubeVoice.js
+index f34998a..c191b12 100644
+--- a/node_modules/distube/dist/core/voice/DisTubeVoice.js
++++ b/node_modules/distube/dist/core/voice/DisTubeVoice.js
+@@ -56,6 +56,23 @@ class DisTubeVoice extends tiny_typed_emitter_1.TypedEmitter {
+             this.emittedError = true;
+             this.emit("error", error);
+         });
++
++        //------------------Patch
++        this.connection.on('stateChange', (oldState, newState) => {
++            const oldNetworking = Reflect.get(oldState, 'networking');
++            const newNetworking = Reflect.get(newState, 'networking');
++          
++            const networkStateChangeHandler = (oldNetworkState, newNetworkState) => {
++              const newUdp = Reflect.get(newNetworkState, 'udp');
++              clearInterval(newUdp?.keepAliveInterval);
++            }
++          
++            oldNetworking?.off('stateChange', networkStateChangeHandler);
++            newNetworking?.on('stateChange', networkStateChangeHandler);
++          });
++        //-----------------------
++
++
+         this.connection
+             .on(voice_1.VoiceConnectionStatus.Disconnected, (_, newState) => {
+             if (newState.reason === voice_1.VoiceConnectionDisconnectReason.WebSocketClose && newState.closeCode === 4014) {
