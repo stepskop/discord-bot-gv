@@ -65,7 +65,7 @@ module.exports = (config, client, database) => {
                                         break;
                                     default:
                                         thumbnailUrl= 'other.svg'
-                                        testChannel.send('@Darkfoyet' + element)
+                                        testChannel.send('@Darkfoyet ' + element.platforms.split(',')[1])
                                         break;
                                 }
                                 const freeGame = new MessageEmbed()
