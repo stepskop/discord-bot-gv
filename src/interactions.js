@@ -154,6 +154,10 @@ module.exports = (config, client) => {
                     const volumeCommand = require('./commands/musicBot/volume')
                     volumeCommand(config, client, interaction, voiceChannel, options)
                     break
+                case 'publishdlc':
+                    const publishDLC = require('./commands/gameDeals/publishFree')
+                    publishDLC(config,client,interaction,options)
+                    break
             }
         } catch (e) {
             //console.log(e)

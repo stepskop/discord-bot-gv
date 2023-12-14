@@ -172,5 +172,17 @@ module.exports = (config, client) => {
         name: 'free',
         description: 'Gives you hot game deals (sales)'
     })
+    commands.create({
+        name: 'publishdlc',
+        description: 'Send specific game deal',
+        options: [
+            {
+                name: "id",
+                description: "Gamepover API deal",
+                type: 'STRING',
+                required: true
+            }
+        ]
+    })
 
 }

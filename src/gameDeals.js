@@ -18,8 +18,6 @@ module.exports = (config, client, database) => {
                         const mongoQuerry = await coll.findOne({ testIndex: 1 })
     
                         let alreadyKnown = mongoQuerry.games
-                        //console.log(alreadyKnown)
-                        //testChannel.send('Requesting now, alreadyKnowns: ' + alreadyKnown)
                         let newKnown = []
     
                         for (let index = 0; index < alreadyKnown.length; index++) {
@@ -36,7 +34,7 @@ module.exports = (config, client, database) => {
                         for (let index = 0; index < Object.keys(res.data).length; index++) {
                             const element = res.data[index]
             
-                            if (element.end_date === 'N/A' || alreadyKnown.includes(element.id)) {
+                            if (alreadyKnown.includes(element.id)) {
                                 continue
                             }
                             //##########################################################
