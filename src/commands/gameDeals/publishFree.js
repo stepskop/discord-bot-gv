@@ -7,13 +7,6 @@ module.exports = (config, client, interaction, options) => {
             axios.get("https://www.gamerpower.com/api/giveaway?id="+id).then((res)=>{
 
                 let element = res.data
-                if (element.type != "DLC") {
-                    interaction.reply({
-                        content: "This is not a DLC",
-                        ephemeral: true
-                    })
-                    return
-                }
                 if (element.status === "Expired") {
                     interaction.reply({
                         content: "This is already expired",

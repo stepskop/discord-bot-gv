@@ -13,6 +13,10 @@ module.exports = (config, client, interaction) => {
         }
         for (let index = 0; index < Object.keys(res.data).length; index++) {
             const element = res.data[index]
+            if (element.end_date === 'N/A') {
+                continue;
+            }
+            //##########################################################
             var timeStamp = new Date(element.end_date).getTime()/1000
             var thumbnailUrl = ''
             try {
