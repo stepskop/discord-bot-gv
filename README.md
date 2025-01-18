@@ -1,5 +1,5 @@
 # Gamer's Helper
-Our little Discord bot, helping us on [GameVibe](https://disboard.org/server/712268262347374632) server.
+Our little Discord bot, helping us on [GameVibe](https://gamevibe.xyz) server.
 
 ## Features:
 - Plays music in voice
