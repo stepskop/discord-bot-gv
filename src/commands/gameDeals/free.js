@@ -1,5 +1,5 @@
 const axios = require('axios')
-const { MessageEmbed } = require('discord.js')
+const { EmbedBuilder } = require('discord.js')
 module.exports = (config, client, interaction) => {
     axios.get('https://www.gamerpower.com/api/filter?platform=epic-games-store.steam.gog.battlenet.ubisoft-connect.origin&sort-by=rarity&type=game')
     .then((res) => {
@@ -45,7 +45,7 @@ module.exports = (config, client, interaction) => {
                         testChannel.send('@Darkfoyet' + element)
                         break;
                 }
-                const freeGame = new MessageEmbed()
+                const freeGame = new EmbedBuilder()
                 .setThumbnail('attachment://'+ thumbnailUrl)
                 .setTitle(element.title)
                 .setDescription('~~' + element.worth + '~~ **Free** until <t:'+ timeStamp +':d>' + ' •' + element.platforms.split(',')[1] +'\n\n[**Get it for free**]('+ element.open_giveaway+')')

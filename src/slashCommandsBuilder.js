@@ -18,12 +18,12 @@ module.exports = (config, client) => {
             {
                 name: 'on',
                 description: 'Heats up the birthplace',
-                type: 'SUB_COMMAND'
+                type: 1
             },
             {
                 name: 'off',
                 description: 'Shuts down the birthplace',
-                type: 'SUB_COMMAND' 
+                type: 1 
             }
         ]
     })
@@ -36,12 +36,12 @@ module.exports = (config, client) => {
             {
                 name: 'start',
                 description: 'Start your server and get IP',
-                type: 'SUB_COMMAND'
+                type: 1
             },
             {
                 name: 'ip',
                 description: 'Get IP',
-                type: 'SUB_COMMAND' 
+                type: 1 
             }
         ]
     })
@@ -54,38 +54,38 @@ module.exports = (config, client) => {
             {
                 name: 'user',
                 description: 'Send DM to specific user',
-                type: 'SUB_COMMAND',
+                type: 1,
                 options: [
                     {
                         name: 'user',
                         description: 'For what user the message is.',
                         required: true,
-                        type: 'USER'
+                        type: 6
                     },
                     {
                         name: 'message',
                         description: 'Messge you want to send',
                         required: true,
-                        type: 'STRING'
+                        type: 3
                     }
                 ]
             },
             {
                 name: 'role',
                 description: 'Send DM to role (all users that haa the role)',
-                type: 'SUB_COMMAND',
+                type: 1,
                 options: [
                     {
                         name: 'role',
                         description: 'For what role the message is.',
                         required: true,
-                        type: 'ROLE'
+                        type: 8
                     },
                     {
                         name: 'message',
                         description: 'Messge you want to send',
                         required: true,
-                        type: 'STRING'
+                        type: 3
                     }
                 ]
             }
@@ -100,7 +100,7 @@ module.exports = (config, client) => {
                 name: 'action',
                 description: 'Add or Remove',
                 required: true,
-                type: 'STRING',
+                type: 3,
                 choices: [
                     {
                         name: "Add",
@@ -116,7 +116,7 @@ module.exports = (config, client) => {
                 name: 'role',
                 description: 'Which role do you giving',
                 required: true,
-                type: 'ROLE',
+                type: 8,
             }
         ]
     })
@@ -127,7 +127,7 @@ module.exports = (config, client) => {
             {
                 name: 'search',
                 description: 'Use Name or URL',
-                type: 'STRING',
+                type: 3,
                 required: true,
             }
         ]
@@ -147,7 +147,7 @@ module.exports = (config, client) => {
             {
                 name: 'percent',
                 description: '10 = 10%',
-                type: 'NUMBER',
+                type: 10,
                 required: true,
             }
         ]
@@ -179,7 +179,7 @@ module.exports = (config, client) => {
             {
                 name: "id",
                 description: "Gamepover API deal",
-                type: 'STRING',
+                type: 3,
                 required: true
             }
         ]

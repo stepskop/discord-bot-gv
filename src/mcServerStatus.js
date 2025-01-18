@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js')
+const { EmbedBuilder } = require('discord.js')
 const axios = require('axios')
 module.exports = (config, client) => {
     const testChannel = client.channels.cache.get(config.testChannel)
@@ -22,7 +22,7 @@ module.exports = (config, client) => {
                             for (const message of messages) {
                                 if (message[1].embeds[0].color != 2067276) {
                                     message[1].delete()
-                                    channel.send({content: "<@&905501025211924532>", embeds: [new MessageEmbed()
+                                    channel.send({content: "<@&905501025211924532>", embeds: [new EmbedBuilder()
                                         .setColor('DARK_GREEN')
                                         .setTitle('<:mc:971451702341414953> Server is on!')
                                         .setDescription('\n*IP is*:\n\n**`'+fullIp+'`**\n\n' + "<t:"+ Math.floor(new Date().getTime() / 1000)+ ":d> at <t:"+ Math.floor(new Date().getTime() / 1000)+ ":t>\n\n")]})
@@ -38,7 +38,7 @@ module.exports = (config, client) => {
                             for (const message of messages) {
                                 if(message[1].embeds[0].color == 2067276) {
                                     message[1].delete()
-                                    channel.send({embeds: [ new MessageEmbed()
+                                    channel.send({embeds: [ new EmbedBuilder()
                                         .setColor('DARK_RED')
                                         .setTitle('Server is currently offline')
                                         .setDescription('Since '+ "<t:"+ Math.floor(new Date().getTime() / 1000)+ ":d> <t:"+ Math.floor(new Date().getTime() / 1000)+ ":t>")]})

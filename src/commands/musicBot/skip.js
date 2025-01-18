@@ -1,8 +1,8 @@
-const { MessageEmbed } = require('discord.js')
+const { EmbedBuilder } = require('discord.js')
 module.exports = (config, client, interaction, voiceChannel, queue) => {
     try {
         if (!queue || queue.songs.length == 1) {
-            return interaction.reply({embeds: [new MessageEmbed().setDescription("There are no tracks to \*\*skip\*\*!")]})
+            return interaction.reply({embeds: [new EmbedBuilder().setDescription("There are no tracks to \*\*skip\*\*!")]})
         }
         else {
             queue.skip(voiceChannel)

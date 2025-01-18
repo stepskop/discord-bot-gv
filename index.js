@@ -1,5 +1,5 @@
-const {Client, Intents, MessageEmbed, CommandInteraction, ReactionUserManager, Options} = require( 'discord.js' );
-const client = new Client( {intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS]} );
+const {Client, GatewayIntentBits, EmbedBuilder, CommandInteraction, ReactionUserManager, Options, Colors} = require( 'discord.js' );
+const client = new Client( {intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildVoiceStates, GatewayIntentBits.GuildEmojisAndStickers]} );
 //const mongoose = require('mongoose')
 const config = require('./config.json')
 const dotenv = require('dotenv')
@@ -23,9 +23,9 @@ client.on('ready', () => {
     command(config, client, 'shutdown', 1, ' ', (message, args) => {
         if (message.author.id === "832731781231804447") { //IFTTT
             const testChannel = client.channels.cache.get(config.testChannel)
-            testChannel.send({embeds: [new MessageEmbed().setColor('ORANGE').setTitle('Shuting down my birthplace...')]})
-            const birthplace = require('./src/birthplace')
-            birthplace(config, client, 'off')
+            testChannel.send({embeds: [new EmbedBuilder().setColor(Colors.Orange).setTitle('Shuting down my birthplace...')]})
+            //const birthplace = require('./src/birthplace')
+            //birthplace(config, client, 'off')
         }
     })
 
@@ -49,13 +49,17 @@ client.on('ready', () => {
 const { DisTube, default: dist, Song } = require('distube')
 const { SpotifyPlugin } = require('@distube/spotify')
 const { YtDlpPlugin } = require('@distube/yt-dlp')
+const { YouTubePlugin } = require("@distube/youtube")
 const { VoiceConnection } = require('@discordjs/voice')
 client.distube = new DisTube(client, {
-    youtubeDL: false,
-    leaveOnEmpty: true,
-    leaveOnStop: true,
-    leaveOnFinish: true,
-    plugins: [new YtDlpPlugin(), new SpotifyPlugin()]
+     emitNewSongOnly: true,
+     emitAddSongWhenCreatingQueue: false,
+     emitAddListWhenCreatingQueue: false,
+     joinNewVoiceChannel: true,
+     ffmpeg: {
+	args: "-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5 -vn"
+     },
+     plugins: [new SpotifyPlugin(), new YtDlpPlugin(), new YouTubePlugin()]
 })
 //Distube - music
 const disTubeInfo = require('./src/distube')
@@ -64,8 +68,8 @@ disTubeInfo(config, client)
 const interactions = require('./src/interactions')
 interactions(config, client)
 //Role on join
-const onJoin = require('./src/onJoin')
-onJoin(config, client)
+//const onJoin = require('./src/onJoin')
+//onJoin(config, client)
 //Auth login
 client.login(process.env.TOKEN)
 

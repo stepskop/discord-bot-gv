@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js')
+const { EmbedBuilder } = require('discord.js')
 const firstMessage = require('./firstMessage')
 
 module.exports = (config, client) => {
@@ -25,7 +25,7 @@ module.exports = (config, client) => {
         const role = emojis[key]
         emojiText += fixedEmoji + ' = ' + role + '\n'
     }
-    let emojiEmbed = new MessageEmbed()
+    let emojiEmbed = new EmbedBuilder()
     .setTitle("Games you play?")
     .setDescription(emojiText)
     .setColor('#11e8e4')

@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js')
+const { EmbedBuilder, Colors } = require('discord.js')
 const pc = require('./commands/admin/pc')
 module.exports = (config, client) => {
     
@@ -26,7 +26,7 @@ module.exports = (config, client) => {
             
             if (usedChannel === allowedChannel[0] || usedChannel === allowedChannel[1]) {
                 if (!voiceChannel) {
-                    let embed = new MessageEmbed()
+                    let embed = new EmbedBuilder()
                     .setDescription("You must be in voice channel!")
                     console.log('User is NOT in voice')
                     return interaction.reply({
@@ -36,8 +36,9 @@ module.exports = (config, client) => {
                 } else if (voiceChannel) {
                     var queue = client.distube.getQueue(voiceChannel)
                 }
-                if (guild.me.voice.channelId && voiceChannel.id !== guild.me.voice.channelId) {
-                    let embed = new MessageEmbed()
+		const botMember = guild.members.cache.get(client.user.id)
+                if (botMember.voice.channel && botMember.voice.channel.id !== member.voice.channel.id) {
+                    let embed = new EmbedBuilder()
                     .setDescription(`Already playing in <#+ ${guild.me.voice.channelId}>`)
                     return interaction.reply({
                         embeds: [embed],
@@ -51,12 +52,12 @@ module.exports = (config, client) => {
                 commandName === 'stop'
                 ) {
                     if (!queue) {
-                        return interaction.reply({embeds: [new MessageEmbed().setDescription("There is no \*\*queue\*\* or \*\*track\*\* playing")], ephemeral: true})
+                        return interaction.reply({embeds: [new EmbedBuilder().setDescription("There is no \*\*queue\*\* or \*\*track\*\* playing")], ephemeral: true})
                     }
                 }
             } else {
                 return interaction.reply({
-                    embeds: [new MessageEmbed().setDescription("Use proper text channel ( <#823638576616833084> )")],
+                    embeds: [new EmbedBuilder().setDescription("Use proper text channel ( <#823638576616833084> )")],
                     ephemeral: true
                 })
             }
@@ -71,7 +72,7 @@ module.exports = (config, client) => {
         ) {
             if (usedChannel != config.commandsChannel) {
                 return interaction.reply({
-                embeds: [new MessageEmbed().setDescription("Use proper text channel ( <#982053578342559794> )")],
+                embeds: [new EmbedBuilder().setDescription("Use proper text channel ( <#982053578342559794> )")],
                 ephemeral: true
                 })
             }
@@ -162,12 +163,12 @@ module.exports = (config, client) => {
         } catch (e) {
             //console.log(e)
             if (e.errorCode === "RESUMED") {
-                interaction.reply({embeds: [new MessageEmbed().setDescription("There is no \*\*paused\*\* track")], ephemeral:true})
+                interaction.reply({embeds: [new EmbedBuilder().setDescription("There is no \*\*paused\*\* track")], ephemeral:true})
             } else if (e.errorCode === "PAUSED"){
-                interaction.reply({embeds: [new MessageEmbed().setDescription("There is no track to \*\*pause\*\*")], ephemeral:true})
+                interaction.reply({embeds: [new EmbedBuilder().setDescription("There is no track to \*\*pause\*\*")], ephemeral:true})
             } else {
-            const errorEmbed = new MessageEmbed()
-            .setColor("RED")
+            const errorEmbed = new EmbedBuilder()
+            .setColor(Colors.Red)
             .setDescription("Something went wrong. Error: "+ e)
             interaction.reply({embeds: [errorEmbed], ephemeral:true})
             }
